@@ -9,10 +9,9 @@
 
 #pragma once //include only once
 
-
 #include <iostream>
 
-//using an enum because its more efficient than using a string
+//each possible valid processs state type
 enum class processState
 {
     NEW,
@@ -22,6 +21,7 @@ enum class processState
     TERMINATED
 };
 
+//struct to hold each PCB
 struct ProcessControlBlock
 {
     processState state; //the current state of the process
@@ -29,21 +29,34 @@ struct ProcessControlBlock
     unsigned priority;  //the priority of the process
 };
 
-std::ostream& operator <<(std::ostream& os, processState state)
+//converts a process state to it's string equivalent
+std::ostream &operator<<(std::ostream &os, processState state)
 {
     switch (state)
     {
-        case processState::NEW       : os << "NEW"; break;
-        case processState::READY     : os << "READY"; break;
-        case processState::RUNNING   : os << "RUNNING"; break;
-        case processState::TERMINATED: os << "TERMINATED"; break;
-        case processState::WAITING   : os << "WAITING"; break;
-        default                      : os.setstate(std::ios_base::failbit);
+    case processState::NEW:
+        os << "NEW";
+        break;
+    case processState::READY:
+        os << "READY";
+        break;
+    case processState::RUNNING:
+        os << "RUNNING";
+        break;
+    case processState::WAITING:
+        os << "WAITING";
+        break;
+    case processState::TERMINATED:
+        os << "TERMINATED";
+        break;
+    default:
+        os.setstate(std::ios_base::failbit); //invalid state type
     }
     return os;
 }
 
-std::ostream& operator <<(std::ostream& os, const ProcessControlBlock& process)
+//converts a PCB to a string
+std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process)
 {
     os << process.ID << '\t' << process.state << '\t' << process.priority;
     return os;
