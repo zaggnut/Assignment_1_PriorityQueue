@@ -9,12 +9,21 @@
 
 #include "PCB_Table.hpp"
 
-void PCB_Table::addNewPCB(ProcessControlBlock& process)
+void PCB_Table::addNewPCB(ProcessControlBlock &process)
 {
-    std::pair<std::map<PCB_ID_TYPE,ProcessControlBlock&>::iterator,bool> ret; //pair to hold return value
-    ret = ProcessMap.insert(std::pair<PCB_ID_TYPE,ProcessControlBlock&>(process.ID,process));
-    if(ret.second == false) //was the insert unsuccessful?
+    auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, ProcessControlBlock &>(process.ID, process));
+    if (ret.second == false) //was the insert unsuccessful?
     {
         throw InsertFailedException();
-    } 
+    }
+}
+
+ProcessControlBlock &PCB_Table::getPCB(PCB_ID_TYPE ID)
+{
+    if (ProcessMap.count(ID) == 0)
+    {
+        throw ProcessNotFoundException();
+    }
+    else
+        return ProcessMap.at(ID);
 }

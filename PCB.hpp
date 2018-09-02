@@ -28,7 +28,7 @@ enum class processState
 struct ProcessControlBlock
 {
     processState state; //the current state of the process
-    PCB_ID_TYPE ID;        //the ID of the process
+    PCB_ID_TYPE ID;     //the ID of the process
     unsigned priority;  //the priority of the process
 };
 
@@ -61,6 +61,12 @@ std::ostream &operator<<(std::ostream &os, processState state)
 //converts a PCB to a string
 std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process)
 {
-    os << process.ID << '\t' << process.state << '\t' << process.priority;
+    os << std::right; //align right
+    os.width(6);
+    os << process.ID;
+    os.width(12);
+    os << process.state;
+    os.width(6);
+    os << process.priority;
     return os;
 }

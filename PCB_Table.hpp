@@ -6,10 +6,10 @@
     Last Update By: Michael Lingo
 
 */
-#pragma once
+#pragma once //include only once
 
 #include "PCB.hpp"
-#include <map> //storing the table in a map
+#include <map>     //storing the table in a map
 #include <utility> //for std::pair
 #include <stdexcept>
 
@@ -17,19 +17,28 @@
 
 class InsertFailedException : public std::exception
 {
-  public:
-    const char* what() const throw()
-    {
-      return "failed to insert, process with that ID already exits?";
-    }
+public:
+  const char *what() const throw()
+  {
+    return "failed to insert, process with that ID already exits?";
+  }
+};
+
+class ProcessNotFoundException : public std::exception
+{
+public:
+  const char *what() const throw()
+  {
+    return "A process control block with that ID was not found";
+  }
 };
 
 class PCB_Table
 {
-  protected:
-    std::map<PCB_ID_TYPE,ProcessControlBlock&> ProcessMap;
+protected:
+  std::map<PCB_ID_TYPE, ProcessControlBlock &> ProcessMap;
 
-  public:
-    void addNewPCB(ProcessControlBlock &process); //stores a refrence to a process control block, throws exception if store unsuccessful
-    ProcessControlBlock& getPCB(PCB_ID_TYPE processID); //returns a refrence to a process control block, throws exception if not found
+public:
+  void addNewPCB(ProcessControlBlock &process);       //stores a refrence to a process control block, throws exception if store unsuccessful
+  ProcessControlBlock &getPCB(PCB_ID_TYPE processID); //returns a refrence to a process control block, throws exception if not found
 };
