@@ -7,3 +7,4 @@ _config.yml
 #built executables
 *.exe
 a.out
+.vscode/settings.json

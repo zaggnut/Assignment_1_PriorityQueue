@@ -2,7 +2,7 @@
     PCB header file
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/01/18
+    Last Update: 9/02/18
     Last Update By: Michael Lingo
 
 */
@@ -10,6 +10,9 @@
 #pragma once //include only once
 
 #include <iostream>
+#include <cstdint>
+
+#define PCB_ID_TYPE uint_fast32_t
 
 //each possible valid processs state type
 enum class processState
@@ -25,7 +28,7 @@ enum class processState
 struct ProcessControlBlock
 {
     processState state; //the current state of the process
-    unsigned ID;        //the ID of the process
+    PCB_ID_TYPE ID;        //the ID of the process
     unsigned priority;  //the priority of the process
 };
 
