@@ -1,5 +1,5 @@
 /*
-    PCB header file
+    PCB header file, requires C++11
     Created By: Michael Lingo
     Created On: 8/31/18
     Last Update: 9/02/18
@@ -12,7 +12,7 @@
 #include <iostream>
 #include <cstdint>
 
-#define PCB_ID_TYPE uint_fast32_t
+typedef uint_fast32_t PCB_ID_TYPE;
 
 //each possible valid processs state type
 enum class processState
