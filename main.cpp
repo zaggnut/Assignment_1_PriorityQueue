@@ -27,6 +27,7 @@ int main()
         {
             auto block = table.removeRandomPCB();
             //std::cout << *block << std::endl;
+            delete block;
         }
     }
     catch(InsertFailedException e)

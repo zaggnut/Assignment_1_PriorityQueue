@@ -11,11 +11,10 @@
 #include <memory>
 
 //PCB factory
-std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
+ProcessControlBlock *createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
 {
-    //std::shared_ptr<ProcessControlBlock> block(new ProcessControlBlock{state, ID, priority});
-    //return block;
-    return std::make_shared<ProcessControlBlock>(state,ID,priority);
+    return new ProcessControlBlock{state,ID,priority};
+    //return std::make_shared<ProcessControlBlock>(state,ID,priority);
 }
 
 //to string for process states
