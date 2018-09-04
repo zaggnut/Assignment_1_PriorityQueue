@@ -46,7 +46,7 @@ std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
     return ProcessMap.at(ID).block;
 }
 
-std::shared_ptr<ProcessControlBlock> &PCB_Table::removePCB(PCB_ID_TYPE ID)
+std::shared_ptr<ProcessControlBlock> PCB_Table::removePCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
     {
@@ -64,7 +64,7 @@ std::shared_ptr<ProcessControlBlock> &PCB_Table::removePCB(PCB_ID_TYPE ID)
     return removedBlock.block;
 }
 
-std::shared_ptr<ProcessControlBlock> &PCB_Table::removeRandomPCB()
+std::shared_ptr<ProcessControlBlock> PCB_Table::removeRandomPCB()
 {
     if (ProcessMap.empty())
     {
