@@ -8,7 +8,6 @@
 */
 
 #include "PCB.hpp"
-#include <memory>
 
 //PCB factory
 ProcessControlBlock *createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)

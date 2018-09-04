@@ -12,7 +12,6 @@
 
 #include <iostream>
 #include <cstdint>
-#include <memory>
 
 typedef uint_fast32_t PCB_ID_TYPE;
 

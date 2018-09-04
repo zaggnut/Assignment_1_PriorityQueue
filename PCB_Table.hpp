@@ -10,7 +10,6 @@
 #define PCB_TABLE_HPP
 
 #include "PCB.hpp"
-#include <memory>
 #include <unordered_map> //storing the table in an unordered map
 #include <vector>        //storing all the keys in a vector improves getting a random process
 #include <utility>       //for std::pair
