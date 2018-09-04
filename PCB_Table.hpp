@@ -22,7 +22,7 @@
 struct PCBKeyStruct //a helper struct to allow removing the key from the key vector easier
 {
   unsigned long processVectorIndex;
-  ProcessControlBlock block;
+  ProcessControlBlock& block;
 };
 
 class InsertFailedException : public std::exception
