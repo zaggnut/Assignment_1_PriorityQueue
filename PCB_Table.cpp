@@ -2,7 +2,7 @@
     PCB Table implementation file
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/02/18
+    Last Update: 9/03/18
     Last Update By: Michael Lingo
 
 */
@@ -18,13 +18,13 @@ PCB_Table::PCB_Table()
 
 void PCB_Table::addNewPCB(ProcessControlBlock &process)
 {
-     if (ProcessMap.count(process.ID) != 0) //Is a process with this ID already in the map?
+    if (ProcessMap.count(process.ID) != 0) //Is a process with this ID already in the map?
     {
         throw InsertFailedException();
     }
     keyVector.push_back(process.ID);
 
-    PCBKeyStruct toInsert = {keyVector.size() -1, process};
+    PCBKeyStruct toInsert = {keyVector.size() - 1, process};
     auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process.ID, toInsert));
     if (ret.second == false) //was the insert unsuccessful for some reason?
     {
@@ -48,7 +48,7 @@ ProcessControlBlock &PCB_Table::removePCB(PCB_ID_TYPE ID)
         throw ProcessNotFoundException();
     }
     PCBKeyStruct removedBlock = ProcessMap.at(ID);
-    if(ProcessMap.size() > 1) //no point in doing this if there is only one item in the map
+    if (ProcessMap.size() > 1) //no point in doing this if there is only one item in the map
     {
         unsigned toSwap = removedBlock.processVectorIndex;
         ProcessMap.at(keyVector[keyVector.size() - 1]).processVectorIndex = toSwap;
@@ -61,7 +61,7 @@ ProcessControlBlock &PCB_Table::removePCB(PCB_ID_TYPE ID)
 
 ProcessControlBlock &PCB_Table::removeRandomPCB()
 {
-    if(ProcessMap.empty())
+    if (ProcessMap.empty())
     {
         throw ProcessNotFoundException();
     }
