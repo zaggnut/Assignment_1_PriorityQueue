@@ -6,7 +6,8 @@
     Last Update By: Michael Lingo
 
 */
-#pragma once //include only once
+#ifndef PCB_TABLE_HPP //header guards
+#define PCB_TABLE_HPP
 
 #include "PCB.hpp"
 #include <unordered_map> //storing the table in an unordered map
@@ -21,7 +22,7 @@
 struct PCBKeyStruct //a helper struct to allow removing the key from the key vector easier
 {
   unsigned long processVectorIndex;
-  ProcessControlBlock &block;
+  ProcessControlBlock block;
 };
 
 class InsertFailedException : public std::exception
@@ -52,9 +53,11 @@ protected:
 public:
   PCB_Table();
   unsigned long size();                                  //returns the number of PCBs in the Table
-  void addNewPCB(ProcessControlBlock &process);          //stores a refrence to a process control block, throws exception if store unsuccessful
+  void addNewPCB(ProcessControlBlock process);           //stores a process control block, throws exception if store unsuccessful
   ProcessControlBlock &getPCB(PCB_ID_TYPE processID);    //returns a refrence to a process control block, throws exception if not found
-  ProcessControlBlock &removePCB(PCB_ID_TYPE processID); //removes a specific PCB from the table
-  ProcessControlBlock &removeRandomPCB();                //removes and returns a random PCB from the table, throws an exception if there aren't any to return
+  ProcessControlBlock removePCB(PCB_ID_TYPE processID); //removes a specific PCB from the table
+  ProcessControlBlock removeRandomPCB();                //removes and returns a random PCB from the table, throws an exception if there aren't any to return
   void clear();                                          //empties the table
 };
+
+#endif //PCB_Table_HPP included

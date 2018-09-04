@@ -2,12 +2,13 @@
     PCB header file, requires C++11
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/02/18
+    Last Update: 9/04/18
     Last Update By: Michael Lingo
 
 */
 
-#pragma once //include only once
+#ifndef PCB_HPP //header guards to include only once
+#define PCB_HPP
 
 #include <iostream>
 #include <cstdint>
@@ -32,41 +33,12 @@ struct ProcessControlBlock
     unsigned priority;  //the priority of the process
 };
 
+ProcessControlBlock createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
+
 //converts a process state to it's string equivalent
-std::ostream &operator<<(std::ostream &os, processState state)
-{
-    switch (state)
-    {
-    case processState::NEW:
-        os << "NEW";
-        break;
-    case processState::READY:
-        os << "READY";
-        break;
-    case processState::RUNNING:
-        os << "RUNNING";
-        break;
-    case processState::WAITING:
-        os << "WAITING";
-        break;
-    case processState::TERMINATED:
-        os << "TERMINATED";
-        break;
-    default:
-        os.setstate(std::ios_base::failbit); //invalid state type
-    }
-    return os;
-}
+std::ostream &operator<<(std::ostream &os, const processState state);
 
 //converts a PCB to a string
-std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process)
-{
-    os << std::right; //align right
-    os.width(6);
-    os << process.ID;
-    os.width(12);
-    os << process.state;
-    os.width(6);
-    os << process.priority;
-    return os;
-}
+std::ostream &operator<<(std::ostream &os, ProcessControlBlock &process);
+
+#endif //PCB_HPP included

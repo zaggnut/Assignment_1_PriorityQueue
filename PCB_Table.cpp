@@ -21,7 +21,7 @@ unsigned long PCB_Table::size()
     return keyVector.size();
 }
 
-void PCB_Table::addNewPCB(ProcessControlBlock &process)
+void PCB_Table::addNewPCB(ProcessControlBlock process)
 {
     if (ProcessMap.count(process.ID) != 0) //Is a process with this ID already in the map?
     {
@@ -33,6 +33,7 @@ void PCB_Table::addNewPCB(ProcessControlBlock &process)
     auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process.ID, toInsert));
     if (ret.second == false) //was the insert unsuccessful for some reason?
     {
+        keyVector.pop_back(); //remove the recently added key
         throw InsertFailedException();
     }
 }
@@ -46,7 +47,7 @@ ProcessControlBlock &PCB_Table::getPCB(PCB_ID_TYPE ID)
     return ProcessMap.at(ID).block;
 }
 
-ProcessControlBlock &PCB_Table::removePCB(PCB_ID_TYPE ID)
+ProcessControlBlock PCB_Table::removePCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
     {
@@ -64,7 +65,7 @@ ProcessControlBlock &PCB_Table::removePCB(PCB_ID_TYPE ID)
     return removedBlock.block;
 }
 
-ProcessControlBlock &PCB_Table::removeRandomPCB()
+ProcessControlBlock PCB_Table::removeRandomPCB()
 {
     if (ProcessMap.empty())
     {
