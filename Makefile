@@ -13,13 +13,13 @@ OBJ = $(SRC:.cpp=.o)    # object files for the target. Add more to this and next
 all : $(PROG)
 
 $(PROG): $(OBJ) 
-        $(CC) -o $(PROG) $(OBJ) $(LDFLAGS) $(LIB)
+		$(CC) -o $(PROG) $(OBJ) $(LDFLAGS) $(LIB)
 
 .cpp.o:
-        $(CC) -c $(CFLAGS) $< -o $@
+		$(CC) -c $(CFLAGS) $< -o $@
 
 # cleanup
 clean:
-        rm -f *.o $(PROG)
+		rm -f *.o $(PROG)
 
 # DO NOT DELETE
