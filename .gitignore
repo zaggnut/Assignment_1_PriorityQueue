@@ -4,7 +4,8 @@ _config.yml
 *.vsproj
 *.sln
 
-#built executables
+#built executables and object files
 *.exe
+*.o
 a.out
 .vscode/settings.json
