@@ -30,8 +30,13 @@ enum class processState
 struct ProcessControlBlock
 {
     processState state; //the current state of the process
-    PCB_ID_TYPE ID;     //the ID of the process
-    unsigned priority;  //the priority of the process
+    const PCB_ID_TYPE ID;           //the ID of the process
+    unsigned priority;        //the priority of the process
+    ProcessControlBlock(processState state_, PCB_ID_TYPE ID_, unsigned priority_) : ID(ID_)
+    {
+        state = state_;
+        priority = priority_;
+    }
 };
 
 std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
