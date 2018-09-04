@@ -51,6 +51,7 @@ protected:
 
 public:
   PCB_Table();
+  unsigned long size();                                  //returns the number of PCBs in the Table
   void addNewPCB(ProcessControlBlock &process);          //stores a refrence to a process control block, throws exception if store unsuccessful
   ProcessControlBlock &getPCB(PCB_ID_TYPE processID);    //returns a refrence to a process control block, throws exception if not found
   ProcessControlBlock &removePCB(PCB_ID_TYPE processID); //removes a specific PCB from the table

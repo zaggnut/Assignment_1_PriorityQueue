@@ -16,6 +16,11 @@ PCB_Table::PCB_Table()
     rand = std::default_random_engine(seed); //seed the random engine with system time
 }
 
+unsigned long PCB_Table::size()
+{
+    return keyVector.size();
+}
+
 void PCB_Table::addNewPCB(ProcessControlBlock &process)
 {
     if (ProcessMap.count(process.ID) != 0) //Is a process with this ID already in the map?
