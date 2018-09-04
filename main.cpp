@@ -18,7 +18,8 @@ int main()
     {
         for(unsigned i = 1; i < 1000000; i++)
         {
-            table.addNewPCB(createPCB(processState::NEW, i, i % 50 + 1));
+            auto block = createPCB(processState::NEW, i, i % 50 + 1);
+            table.addNewPCB(block);
         }
         auto block = table.getPCB(20);
         block->state = processState::RUNNING;
