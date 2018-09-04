@@ -20,11 +20,12 @@ int main()
             table.addNewPCB(createPCB(processState::NEW, i, i % 49 + 1));
         }
         auto block = table.getPCB(20);
-        block.state = processState::RUNNING;
+        block->state = processState::RUNNING;
         while(table.size() != 0)
         {
             auto block = table.removeRandomPCB();
-            std::cout << block << std::endl;
+            std::cout << *block << std::endl;
+            delete block;
         }
     }
     catch(InsertFailedException e)

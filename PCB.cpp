@@ -10,9 +10,9 @@
 #include "PCB.hpp"
 
 //PCB factory
-ProcessControlBlock createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
+ProcessControlBlock *createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
 {
-    ProcessControlBlock block{state, ID, priority};
+    ProcessControlBlock *block = new ProcessControlBlock{state, ID, priority};
     return block;
 }
 

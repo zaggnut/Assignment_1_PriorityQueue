@@ -33,7 +33,7 @@ struct ProcessControlBlock
     unsigned priority;  //the priority of the process
 };
 
-ProcessControlBlock createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
+ProcessControlBlock *createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
 
 //converts a process state to it's string equivalent
 std::ostream &operator<<(std::ostream &os, const processState state);
