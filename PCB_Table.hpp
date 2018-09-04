@@ -64,16 +64,16 @@ public:
   unsigned long size();
 
   //stores a process control block, throws exception if store unsuccessful
-  void addNewPCB(std::shared_ptr<ProcessControlBlock> process);
+  void addNewPCB(std::shared_ptr<ProcessControlBlock> &process);
 
   //returns a refrence to a process control block, throws exception if not found
-  std::shared_ptr<ProcessControlBlock> getPCB(PCB_ID_TYPE processID);
+  std::shared_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);
 
   //removes a specific PCB from the table
-  std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID);
+  std::shared_ptr<ProcessControlBlock> &removePCB(PCB_ID_TYPE processID);
 
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
-  std::shared_ptr<ProcessControlBlock> removeRandomPCB();
+  std::shared_ptr<ProcessControlBlock> &removeRandomPCB();
   
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   void clear();
