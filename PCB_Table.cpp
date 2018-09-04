@@ -2,7 +2,7 @@
     PCB Table implementation file
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/03/18
+    Last Update: 9/04/18
     Last Update By: Michael Lingo
 
 */
@@ -12,7 +12,6 @@
 PCB_Table::PCB_Table()
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    keyVector.reserve(50);
     rand = std::default_random_engine(seed); //seed the random engine with system time
 }
 
