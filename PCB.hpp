@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <cstdint>
+#include <memory>
 
 typedef uint_fast32_t PCB_ID_TYPE;
 
@@ -33,7 +34,7 @@ struct ProcessControlBlock
     unsigned priority;  //the priority of the process
 };
 
-ProcessControlBlock *createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
+std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
 
 //converts a process state to it's string equivalent
 std::ostream &operator<<(std::ostream &os, const processState state);
