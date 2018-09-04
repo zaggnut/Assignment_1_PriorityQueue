@@ -1,5 +1,5 @@
 /*
-    PCB Table implementation file
+    PCB Table implementation file, requires C++11
     Created By: Michael Lingo
     Created On: 8/31/18
     Last Update: 9/04/18

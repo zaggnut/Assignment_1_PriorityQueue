@@ -1,5 +1,5 @@
 /*
-    PCB Table header file
+    PCB Table header file, requires C++11
     Created By: Michael Lingo
     Created On: 8/31/18
     Last Update: 9/04/18
@@ -47,18 +47,36 @@ public:
 class PCB_Table
 {
 protected:
+  //map to hold the data
   std::unordered_map<PCB_ID_TYPE, PCBKeyStruct> ProcessMap;
+
+  //for random number generation
   std::default_random_engine rand;
+
+   //vector to hold all they keys, faster access for rng
   std::vector<PCB_ID_TYPE> keyVector;
 
 public:
+  //default constructor
   PCB_Table();
-  unsigned long size();                                 //returns the number of PCBs in the Table
-  void addNewPCB(std::shared_ptr<ProcessControlBlock> process);         //stores a process control block, throws exception if store unsuccessful
-  std::shared_ptr<ProcessControlBlock> getPCB(PCB_ID_TYPE processID);   //returns a refrence to a process control block, throws exception if not found
-  std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID); //removes a specific PCB from the table
-  std::shared_ptr<ProcessControlBlock> removeRandomPCB();                //removes and returns a random PCB from the table, throws an exception if there aren't any to return
-  void clear();                                         //empties the table
+
+  //returns the number of PCBs in the Table
+  unsigned long size();
+
+  //stores a process control block, throws exception if store unsuccessful
+  void addNewPCB(std::shared_ptr<ProcessControlBlock> process);
+
+  //returns a refrence to a process control block, throws exception if not found
+  std::shared_ptr<ProcessControlBlock> getPCB(PCB_ID_TYPE processID);
+
+  //removes a specific PCB from the table
+  std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID);
+
+  //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
+  std::shared_ptr<ProcessControlBlock> removeRandomPCB();
+  
+  //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
+  void clear();
 };
 
 #endif //PCB_Table_HPP included

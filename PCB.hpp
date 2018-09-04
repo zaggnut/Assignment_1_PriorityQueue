@@ -29,9 +29,16 @@ enum class processState
 //struct to hold each PCB
 struct ProcessControlBlock
 {
-    processState state; //the current state of the process
-    const PCB_ID_TYPE ID;           //the ID of the process
-    unsigned priority;        //the priority of the process
+    //the current state of the process
+    processState state;
+
+    //the ID of the process
+    const PCB_ID_TYPE ID;
+
+    //the priority of the process
+    unsigned priority;
+
+    //constructor allows for runtime initialization of a constant value
     ProcessControlBlock(processState state_, PCB_ID_TYPE ID_, unsigned priority_) : ID(ID_)
     {
         state = state_;
