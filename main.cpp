@@ -16,13 +16,13 @@ int main()
     PCB_Table table;
     try
     {
-        for(unsigned i = 1; i < 50; i++)
+        for(unsigned i = 1; i < 100000; i++)
         {
             auto block = createPCB(processState::NEW, i, i % 50 + 1);
             table.addNewPCB(block);
         }
-        auto block = table.getPCB(20);
-        block->state = processState::RUNNING;
+        table.getPCB(20)->state = processState::RUNNING;
+        //block->state = processState::RUNNING;
         while(table.size() != 0)
         {
             auto block = table.removeRandomPCB();
