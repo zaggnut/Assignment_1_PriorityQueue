@@ -16,7 +16,7 @@ int main()
     PCB_Table table;
     try
     {
-        for(unsigned i = 1; i < 50; i++)
+        for(unsigned i = 1; i < 1000000; i++)
         {
             table.addNewPCB(createPCB(processState::NEW, i, i % 50 + 1));
         }
