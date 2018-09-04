@@ -20,7 +20,7 @@
 
 struct PCBKeyStruct //a helper struct to allow removing the key from the key vector easier
 {
-  unsigned processVectorIndex;
+  unsigned long processVectorIndex;
   ProcessControlBlock &block;
 };
 

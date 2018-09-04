@@ -24,7 +24,7 @@ void PCB_Table::addNewPCB(ProcessControlBlock &process)
     }
     keyVector.push_back(process.ID);
 
-    PCBKeyStruct toInsert = {keyVector.size() - 1, process};
+    PCBKeyStruct toInsert{keyVector.size() - 1, process};
     auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process.ID, toInsert));
     if (ret.second == false) //was the insert unsuccessful for some reason?
     {
