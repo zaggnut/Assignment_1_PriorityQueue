@@ -46,6 +46,11 @@ std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
     return ProcessMap.at(ID).block;
 }
 
+const std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector() const
+{
+    return keyVector;
+}
+
 std::shared_ptr<ProcessControlBlock> PCB_Table::removePCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
