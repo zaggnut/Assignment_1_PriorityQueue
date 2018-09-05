@@ -13,10 +13,10 @@
 
 int main()
 {
-    PCB_Table table;
+    PCB_Table table(1000000);
     try
     {
-        for(unsigned i = 1; i < 50; i++)
+        for(unsigned i = 1; i < 1000000; i++)
         {
             auto block = createPCB(processState::NEW, i, i % 50 + 1);
             table.addNewPCB(block);
@@ -26,7 +26,7 @@ int main()
         while(table.size() != 0)
         {
             auto block = table.removeRandomPCB();
-            std::cout << *block << std::endl;
+            //std::cout << *block << std::endl;
         }
     }
     catch(InsertFailedException e)

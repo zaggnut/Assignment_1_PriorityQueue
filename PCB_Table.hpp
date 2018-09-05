@@ -60,6 +60,9 @@ public:
   //default constructor
   PCB_Table();
 
+  //set an initial size
+  PCB_Table(unsigned initialSize);
+
   //returns the number of PCBs in the Table
   unsigned long size();
 

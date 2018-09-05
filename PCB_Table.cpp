@@ -15,6 +15,14 @@ PCB_Table::PCB_Table()
     rand = std::default_random_engine(seed); //seed the random engine with system time
 }
 
+PCB_Table::PCB_Table(unsigned initialSize)
+{
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    rand = std::default_random_engine(seed); //seed the random engine with system time
+    keyVector.reserve(initialSize);
+    ProcessMap.reserve(initialSize);
+}
+
 unsigned long PCB_Table::size()
 {
     return keyVector.size();
