@@ -52,7 +52,7 @@ protected:
   //for random number generation
   std::default_random_engine rand;
 
-   //vector to hold all they keys, faster access for rng
+  //vector to hold all they keys, faster access for rng
   std::vector<PCB_ID_TYPE> keyVector;
 
 public:
@@ -68,12 +68,15 @@ public:
   //returns a refrence to a process control block, throws exception if not found
   ProcessControlBlock *getPCB(PCB_ID_TYPE processID);
 
+  //returns a constant refrence to the key vector
+  const std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector() const;
+
   //removes a specific PCB from the table
   ProcessControlBlock *removePCB(PCB_ID_TYPE processID);
 
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   ProcessControlBlock *removeRandomPCB();
-  
+
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   void clear();
 };
