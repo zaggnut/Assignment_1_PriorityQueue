@@ -20,7 +20,7 @@ int main()
     PCB_Table table;
     try
     {
-        for(unsigned i = 1; i < 1000000; i++)
+        for(unsigned i = 1; i < 50; i++)
         {
             //auto block = createPCB(processState::NEW, i, i % 50 + 1);
             table.addNewProcess(processState::NEW, i, i % 49 + 1);
@@ -29,8 +29,9 @@ int main()
         //block->state = processState::RUNNING;
         while(table.size() != 0)
         {
-            
-            table.terminateProcess(table.getKeyVector()[rand() % table.size()]);
+            PCB_ID_TYPE key = table.getKeyVector()[rand() % table.size()];
+            std::cout << *table.getPCB(key) << std::endl;
+            table.terminateProcess(key);
             //std::cout << *block << std::endl;
         }
     }
