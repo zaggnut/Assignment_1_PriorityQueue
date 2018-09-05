@@ -61,7 +61,7 @@ public:
   void addNewProcess(processState state, PCB_ID_TYPE ID, unsigned priority);
 
   //returns a constant reference to the keyVector
-  std::vector<PCB_ID_TYPE> &getKeyVector();
+  const std::vector<PCB_ID_TYPE> &getKeyVector() const;
 
   //returns a refrence to a process control block, throws exception if not found
   std::unique_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);

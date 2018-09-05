@@ -14,7 +14,7 @@ unsigned long PCB_Table::size()
     return keyVector.size();
 }
 
-std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector()
+const std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector() const
 {
     return keyVector;
 }
