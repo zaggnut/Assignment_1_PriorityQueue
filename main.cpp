@@ -16,17 +16,17 @@ int main()
     PCB_Table table;
     try
     {
-        for(unsigned i = 1; i < 1000000; i++)
+        for(unsigned i = 1; i < 50; i++)
         {
             auto block = createPCB(processState::NEW, i, i % 50 + 1);
             table.addNewPCB(block);
         }
-        table.getPCB(20)->state = processState::RUNNING;
-        //block->state = processState::RUNNING;
+        auto block = table.getPCB(20);
+        block->state = processState::RUNNING;
         while(table.size() != 0)
         {
             auto block = table.removeRandomPCB();
-            //std::cout << *block << std::endl;
+            std::cout << *block << std::endl;
         }
     }
     catch(InsertFailedException e)
