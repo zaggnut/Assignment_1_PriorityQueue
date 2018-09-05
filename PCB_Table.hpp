@@ -15,15 +15,14 @@
 #include <vector>        //storing all the keys in a vector improves getting a random process
 #include <utility>       //for std::pair
 #include <stdexcept>
-#include <random>
-#include <chrono>
+
 
 //stores refrences to process control blocks
 
 struct PCBKeyStruct //a helper struct to allow removing the key from the key vector easier
 {
   unsigned long processVectorIndex;
-  std::shared_ptr<ProcessControlBlock> block;
+  std::unique_ptr<ProcessControlBlock> block;
 };
 
 class InsertFailedException : public std::exception
@@ -50,30 +49,25 @@ protected:
   //map to hold the data
   std::unordered_map<PCB_ID_TYPE, PCBKeyStruct> ProcessMap;
 
-  //for random number generation
-  std::default_random_engine rand;
-
-   //vector to hold all they keys, faster access for rng
+  //vector to hold all they keys, faster access for rng
   std::vector<PCB_ID_TYPE> keyVector;
 
 public:
-  //default constructor
-  PCB_Table();
 
   //returns the number of PCBs in the Table
   unsigned long size();
 
   //stores a process control block, throws exception if store unsuccessful
-  void addNewPCB(std::shared_ptr<ProcessControlBlock> &process);
+  void addNewProcess(processState state, PCB_ID_TYPE ID, unsigned priority);
+
+  //returns a constant reference to the keyVector
+  std::vector<PCB_ID_TYPE> &getKeyVector();
 
   //returns a refrence to a process control block, throws exception if not found
-  std::shared_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);
+  std::unique_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);
 
-  //removes a specific PCB from the table
-  std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID);
-
-  //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
-  std::shared_ptr<ProcessControlBlock> removeRandomPCB();
+  //no reason to be able to remove individual ones unless they are terminated
+  void terminateProcess(PCB_ID_TYPE processID);
   
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   void clear();

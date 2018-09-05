@@ -9,27 +9,26 @@
 
 #include "PCB_Table.hpp"
 
-PCB_Table::PCB_Table()
-{
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    rand = std::default_random_engine(seed); //seed the random engine with system time
-}
-
 unsigned long PCB_Table::size()
 {
     return keyVector.size();
 }
 
-void PCB_Table::addNewPCB(std::shared_ptr<ProcessControlBlock> &process)
+std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector()
 {
-    if (ProcessMap.count(process->ID) != 0) //Is a process with this ID already in the map?
+    return keyVector;
+}
+
+void PCB_Table::addNewProcess(processState state, PCB_ID_TYPE ID, unsigned priority)
+{
+    if (ProcessMap.count(ID) != 0) //Is a process with this ID already in the map?
     {
         throw InsertFailedException();
     }
-    keyVector.push_back(process->ID);
+    keyVector.push_back(ID);
 
-    PCBKeyStruct toInsert{keyVector.size() - 1, process};
-    auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process->ID, toInsert));
+    PCBKeyStruct toInsert{keyVector.size() - 1, std::unique_ptr<ProcessControlBlock>(new ProcessControlBlock{state, ID, priority})};
+    auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(ID, std::move(toInsert)));
     if (ret.second == false) //was the insert unsuccessful for some reason?
     {
         keyVector.pop_back(); //remove the recently added key
@@ -37,7 +36,7 @@ void PCB_Table::addNewPCB(std::shared_ptr<ProcessControlBlock> &process)
     }
 }
 
-std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
+std::unique_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
     {
@@ -46,32 +45,21 @@ std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
     return ProcessMap.at(ID).block;
 }
 
-std::shared_ptr<ProcessControlBlock> PCB_Table::removePCB(PCB_ID_TYPE ID)
+void PCB_Table::terminateProcess(PCB_ID_TYPE processID)
 {
-    if (ProcessMap.count(ID) == 0)
+    if (ProcessMap.count(processID) == 0)
     {
         throw ProcessNotFoundException();
     }
-    PCBKeyStruct removedBlock = ProcessMap.at(ID);
+    //PCBKeyStruct removedBlock = ProcessMap.at(processID);
     if (ProcessMap.size() > 1) //no point in doing this if there is only one item in the map
     {
-        unsigned toSwap = removedBlock.processVectorIndex;
+        unsigned toSwap = ProcessMap.at(processID).processVectorIndex;
         ProcessMap.at(keyVector[keyVector.size() - 1]).processVectorIndex = toSwap;
         keyVector[toSwap] = keyVector[keyVector.size() - 1]; //move toSwap to the last element
     }
     keyVector.pop_back(); //remove the last element from the vector
-    ProcessMap.erase(ID);
-    return removedBlock.block;
-}
-
-std::shared_ptr<ProcessControlBlock> PCB_Table::removeRandomPCB()
-{
-    if (ProcessMap.empty())
-    {
-        throw ProcessNotFoundException();
-    }
-    unsigned pos = rand() % ProcessMap.size();
-    return removePCB(keyVector[pos]);
+    ProcessMap.erase(processID);
 }
 
 void PCB_Table::clear()
