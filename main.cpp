@@ -13,7 +13,7 @@
 
 int main()
 {
-    PCB_Table table(1000000);
+    PCB_Table table{10};
     try
     {
         for(unsigned i = 1; i < 1000000; i++)
