@@ -15,6 +15,14 @@ PCB_Table::PCB_Table()
     rand = std::default_random_engine(seed); //seed the random engine with system time
 }
 
+PCB_Table::PCB_Table(unsigned initialSize)
+{
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    rand = std::default_random_engine(seed); //seed the random engine with system time
+    keyVector.reserve(initialSize);
+    ProcessMap.reserve(initialSize);
+}
+
 unsigned long PCB_Table::size()
 {
     return keyVector.size();
@@ -44,6 +52,11 @@ std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
         throw ProcessNotFoundException();
     }
     return ProcessMap.at(ID).block;
+}
+
+const std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector() const
+{
+    return keyVector;
 }
 
 std::shared_ptr<ProcessControlBlock> PCB_Table::removePCB(PCB_ID_TYPE ID)

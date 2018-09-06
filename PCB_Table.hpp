@@ -60,6 +60,9 @@ public:
   //default constructor
   PCB_Table();
 
+  //set an initial size
+  PCB_Table(unsigned initialSize);
+
   //returns the number of PCBs in the Table
   unsigned long size();
 
@@ -68,6 +71,8 @@ public:
 
   //returns a refrence to a process control block, throws exception if not found
   std::shared_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);
+
+  const std::vector<PCB_ID_TYPE> &getKeyVector() const;
 
   //removes a specific PCB from the table
   std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID);
