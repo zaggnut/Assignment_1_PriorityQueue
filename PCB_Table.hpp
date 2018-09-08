@@ -80,7 +80,7 @@ public:
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   std::shared_ptr<ProcessControlBlock> removeRandomPCB();
   
-  //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
+  //clears everything
   void clear();
 };
 
