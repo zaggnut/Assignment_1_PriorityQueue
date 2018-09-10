@@ -28,24 +28,29 @@ ProcessControlBlock PCBqueue::deQueue()
 //prints out the content of the PCB queue
 void PCBqueue::printQueue()
 {
-	cout << "Process Control Blocks of the Queue" << endl;
-
-	//pointer p of PCB objects traverses through the List and the beginning until it reaches the end
-	//each PCB object in the List is printed
-	for (list<ProcessControlBlock>::iterator p = queueList.begin(); p != queueList.end(); p++)
+	if (queueList.size() != 0)
 	{
-		cout << *p << endl; //the PCB object pointed to by p is printed
+		cout << "Process Control Blocks of the Queue" << endl;
+
+		//pointer p of PCB objects traverses through the List and the beginning until it reaches the end
+		//each PCB object in the List is printed
+		for (list<ProcessControlBlock>::iterator p = queueList.begin(); p != queueList.end(); p++)
+		{
+			cout << *p << endl; //the PCB object pointed to by p is printed
+		}
 	}
 }
 
 //prints the content of the 1st PCB object of the Queue
-//****NEED TO HANDLE EMPTY QUEUE (check if pointer p is at the end of the list with .end() list function)
 void PCBqueue::printLeadingPCB()
 {
-	cout << "The Process Control Block at beginning of the Queue" << endl;
-
-	list<ProcessControlBlock>::iterator p = queueList.begin(); //creates a PCB pointer and points it at the first PCB object in the list
-	cout << *p << endl; //prints the PCB object
+	if (queueList.size() != 0)
+	{
+		cout << "The Process Control Block at beginning of the Queue" << endl;
+		list<ProcessControlBlock>::iterator p = queueList.begin(); //creates a PCB pointer and points it at the first PCB object in the list
+		cout << *p << endl; //prints the PCB object
+	}
+	else cout << "The Queue is empty" << endl;
 }
 
 //returns true if the Queue is empty, else it returns false (not empty)
