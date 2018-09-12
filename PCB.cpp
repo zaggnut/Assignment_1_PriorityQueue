@@ -45,7 +45,7 @@ std::ostream &operator<<(std::ostream &os, const processState state)
 }
 
 //converts a PCB to a string
-std::ostream &operator<<(std::ostream &os, ProcessControlBlock &process)
+std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process)
 {
     os << std::right; //align right
     os.width(6);
