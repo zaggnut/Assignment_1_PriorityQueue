@@ -3,7 +3,7 @@ Purpose: Define the class PriorityQueuePCB for ProcessControlBlock objects.
 Creation Date: 9/12/2018
 Created By: Shane Laskowski
 Date Of Last Modifcation: 9/12/2018
-Last Modification By: Shane Laskowski
+Last Modification By:  Shane Laskowski
 */
 
 #ifndef PriorityQueuePCB
