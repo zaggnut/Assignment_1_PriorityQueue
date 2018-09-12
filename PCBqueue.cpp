@@ -8,10 +8,8 @@ Date Of Last Modifcation: 9/8/2018
 Last Modification By: Shane Laskowski
 */
 
-#include <iostream>
-#include <iomanip>
-#include <cmath>
-using namespace std;
+
+#include "PCBqueue.hpp"
 
 //puts the PCB object at the rear of the Queue
 void PCBqueue::enQueue(ProcessControlBlock PCBtoBeAdded)

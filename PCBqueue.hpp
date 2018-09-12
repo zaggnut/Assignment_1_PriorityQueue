@@ -11,14 +11,17 @@ Last Modification By: Shane Laskowski
 #define PCBqueue
 
 #include <list>
-using namespace std;
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
 
 #include "PCB.hpp"
 
 class PCBqueue
 {
 protected:
-	list<ProcessControlBlock> queueList; //doubly linked list in std library, used to hold PCB objects in an ordered fashion
+	std::list<ProcessControlBlock> queueList; //doubly linked list in std library, used to hold PCB objects in an ordered fashion
 public:
 	void enQueue(ProcessControlBlock PCBtoBeAdded); //adds the PCB object to rear of the queue
 	ProcessControlBlock deQueue(); //removes the PCB object from the front of the queue
