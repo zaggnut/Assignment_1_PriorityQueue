@@ -17,6 +17,8 @@ Last Modification By: Michael Lingo
 
 #include "PCB.hpp"
 
+//make the list a list of shared pointers of PCB_table objects
+
 class PCBqueue
 {
   protected:
