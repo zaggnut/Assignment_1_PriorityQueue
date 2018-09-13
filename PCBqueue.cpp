@@ -20,7 +20,7 @@ void PCBqueue::enQueue(ProcessControlBlock PCBtoBeAdded)
 //removes the PCB object that is at the front of the Queue and returns it
 ProcessControlBlock PCBqueue::deQueue()
 {
-	auto toRet = *(queueList.cbegin());
+	auto toRet = queueList.front();
 	queueList.pop_front(); //pops the PCB object from the front and returns it
 	return toRet;
 
