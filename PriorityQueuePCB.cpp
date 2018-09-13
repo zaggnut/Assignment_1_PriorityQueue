@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -28,7 +27,19 @@ PriorityQueuePCB::PriorityQueuePCB(int TotalPriorityLevels)
 	PriorityQueue.reserve(TotalPriorityLevels); //the vector PriorityQueue now has reserved space for TotalPriorityLevels amount of Queue objects
 }
 
+void PriorityQueuePCB::addPCB(ProcessControlBlock PCBtoBeAdded)
+{
 
+	//check the PCB's priority level
+	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
+
+}
+
+ProcessControlBlock PriorityQueuePCB::removePCB()
+{
+
+
+}
 
 /*
 ~PriorityQueuePCB();

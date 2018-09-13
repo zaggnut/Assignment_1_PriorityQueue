@@ -9,10 +9,6 @@ Last Modification By:  Shane Laskowski
 #ifndef PriorityQueuePCB
 #define PriorityQueuePCB
 
-#include <vector>
-#include <iostream>
-using namespace std;
-
 #include "PCBqueue.hpp"
 #include "PCB.hpp"
 
