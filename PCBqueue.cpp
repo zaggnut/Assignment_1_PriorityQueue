@@ -4,8 +4,8 @@ Purpose: Define the class PCBqueue to be used in the PCBpriorityQueue class.
 		 The content of this queue is made of ProcessControlBlock objects.
 Creation Date: 9/8/2018
 Created By: Shane Laskowski
-Date Of Last Modifcation: 9/8/2018
-Last Modification By: Shane Laskowski
+Date Of Last Modifcation: 9/13/2018
+Last Modification By: Michael Lingo
 */
 
 
@@ -24,6 +24,11 @@ ProcessControlBlock PCBqueue::deQueue()
 	queueList.pop_front(); //pops the PCB object from the front and returns it
 	return toRet;
 
+}
+
+ProcessControlBlock PCBqueue::peek()
+{
+	return queueList.front();
 }
 
 //prints out the content of the PCB queue
