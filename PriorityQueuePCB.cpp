@@ -29,7 +29,6 @@ PriorityQueuePCB::PriorityQueuePCB(int TotalPriorityLevels)
 
 void PriorityQueuePCB::addPCB(ProcessControlBlock PCBtoBeAdded)
 {
-
 	//check the PCB's priority level
 	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
 
@@ -37,17 +36,19 @@ void PriorityQueuePCB::addPCB(ProcessControlBlock PCBtoBeAdded)
 
 ProcessControlBlock PriorityQueuePCB::removePCB()
 {
-
+	//search linearly along the Priority queue's vector of queues.  the 1st queue that isn't empty pop off from that and return PCB
+	//if doing pointers for optimization, return a shared pointer to the object
 
 }
 
-/*
-~PriorityQueuePCB();
-PriorityQueuePCB();
-PriorityQueuePCB(int TotalPriorityLevels);
+void PriorityQueuePCB::isEmpty()
+{
+//go through the entire priorityQueue vector and check each queue for any PCB objects (call the queuePCB method)
 
-void addPCB(ProcessControlBlock PCBtoBeAdded);
-ProcessControlBlock removePCB();
-bool isEmpty();
-void PrintPriorityQueue();
-*/
+}
+
+void PriorityQueuePCB::PrintPriorityQueue()
+{
+	//traverse the priority queue's vector and call the print method of each queue
+
+}
