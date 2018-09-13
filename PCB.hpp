@@ -52,6 +52,6 @@ std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE I
 std::ostream &operator<<(std::ostream &os, const processState state);
 
 //converts a PCB to a string
-std::ostream &operator<<(std::ostream &os, ProcessControlBlock &process);
+std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process);
 
 #endif //PCB_HPP included
