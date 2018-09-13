@@ -6,8 +6,8 @@ Date Of Last Modifcation: 9/12/2018
 Last Modification By:  Shane Laskowski
 */
 
-#ifndef PriorityQueuePCB
-#define PriorityQueuePCB
+#ifndef PriorityQueuePCB_HPP
+#define PriorityQueuePCB_HPP
 
 #include "PCBqueue.hpp"
 #include "PCB.hpp"
@@ -33,4 +33,4 @@ public:
 
 };
 
-#endif //PriorityQueuePCB
+#endif //PriorityQueuePCB_HPP
