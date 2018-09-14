@@ -8,23 +8,26 @@ Date Of Last Modifcation: 9/13/2018
 Last Modification By: Michael Lingo
 */
 
-
 #include "PCBqueue.hpp"
 #include <iostream>
+//<memory> should already be included with PCBqueue.hpp
 
-//puts the PCB object at the rear of the Queue
-void PCBqueue::enQueue(ProcessControlBlock PCBtoBeAdded)
+//the PCB with identity key map value of ID will have a shared pointer to the PCB stored into the queueList of shared_ptrs.
+//the shared pointer to the PCB will be stored in the back of the queue
+void PCBqueue::enQueue(PCB_ID_TYPE ID)
 {
-	queueList.push_back(PCBtoBeAdded); // adds the PCB object to the rear
+	queueList.push_back(PCB_Table::getPCB(ID)); //************Not sure if this works. getPCB returns an ADDRESS of a shared_ptr
 }
 
-//removes the PCB object that is at the front of the Queue and returns it
-ProcessControlBlock PCBqueue::deQueue()
+//removes the leading PCB shared_ptr of the queue and returns it. :::Note::: std::list pop_front() does not return anything 
+std::shared_ptr<ProcessControlBlock> PCBqueue::deQueue()
 {
-	auto toRet = queueList.front();
-	queueList.pop_front(); //pops the PCB object from the front and returns it
-	return toRet;
+	//return(queueList.pop_front()); pop_front does not return anything, this does not work
 
+	std::shared_ptr<ProcessControlBlock> PCBptrToBeRemoved = queuelist.front();
+	queueList.pop_front();
+
+	return(PCBptrToBeRemoved);
 }
 
 //prints out the content of the PCB queue
@@ -32,13 +35,13 @@ void PCBqueue::printQueue()
 {
 	if (queueList.size() != 0)
 	{
-		std::cout << "Process Control Blocks of the Queue" << std::endl;
-
-		//pointer p of PCB objects traverses through the List and the beginning until it reaches the end
-		//each PCB object in the List is printed
-		for (auto p = queueList.cbegin(); p != queueList.end(); p++)
+		for (std::shared_ptr<ProcessControlBlock> p = queueList.cbegin(); p != queueList.end(); p++) //try using auto instead of std::shared_ptr<ProcessControlBlock>
 		{
-			std::cout << *p << std::endl; //the PCB object pointed to by p is printed
+			std::cout << "Info of a PCB in the queue" << std::endl;
+			std::cout << p->ID << std::endl;
+			std::cout << p->priority << std::endl;
+			std::cout << p->state<< std::endl;
+			std::cout << std::endl;
 		}
 	}
 }
@@ -49,8 +52,11 @@ void PCBqueue::printLeadingPCB()
 	if (queueList.size() != 0)
 	{
 		std::cout << "The Process Control Block at beginning of the Queue" << std::endl;
-		auto p = queueList.cbegin(); //creates a PCB pointer and points it at the first PCB object in the list
-		std::cout << *p << std::endl; //prints the PCB object
+		std::shared_ptr<ProcessControlBlock> p = queueList.cbegin(); //creates a PCB pointer and points it at the first PCB object in the list
+		std::cout << p->ID << std::endl;
+		std::cout << p->priority << std::endl;
+		std::cout << p->state << std::endl;
+
 	}
 	else std::cout << "The Queue is empty" << std::endl;
 }
@@ -58,8 +64,5 @@ void PCBqueue::printLeadingPCB()
 //returns true if the Queue is empty, else it returns false (not empty)
 bool PCBqueue::isEmpty()
 {
-	/*if (queueList.size() == 0)
-		return(true);
-	else return(false);*/
 	return queueList.empty();
 }

@@ -23,9 +23,12 @@ Last Modification By: Michael Lingo
 class PCBqueue
 {
   protected:
-	std::list<std::shared_ptr<ProcessControlBlock> > queueList; //doubly linked list in std library, holds shared_ptrs to PCBs objects held in PCBtable
+	std::list<std::shared_ptr<ProcessControlBlock> > queueList; //doubly linked list of std library, holds shared_ptrs to PCBs objects held in PCBtable
   public:
-	void enQueue(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded); //adds a shared_ptr of a PCB inside of PCBtable to the back of the queue
+
+	//the PCB with identity key map value of ID will have a shared pointer to the PCB stored into the queueList of shared_ptrs
+	void enQueue(PCB_ID_TYPE ID); 
+
 	std::shared_ptr<ProcessControlBlock> deQueue();	//removes the leading shared_ptr of a PCB in the front of the queue and returns the shared_ptr
 	void printQueue();	//prints out all PCB objects of the queue
 	void printLeadingPCB();	//prints out the PCB object in the front of the queue
