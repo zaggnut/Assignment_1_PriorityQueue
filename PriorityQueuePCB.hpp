@@ -12,6 +12,7 @@ Last Modification By:  Shane Laskowski
 #include "PCBqueue.hpp"
 #include "PCB.hpp"
 
+
 class PriorityQueuePCB
 {
 protected:
@@ -28,7 +29,7 @@ public:
 											   // this helps keep the vector from constantly copying and placing its content in new memory spaces for each size change
 	
 	void addPCB(PCB_ID_TYPE ID); //adds a PCB shared ptr to the PriorityQueue (vector) based on the ID number of the specific PCB
-	ProcessControlBlock removePCB();
+	std::shared_ptr<ProcessControlBlock> removePCB();  //removes a PCB shared ptr from the priority queue and returns it
 	bool isEmpty();
 	void PrintPriorityQueue();
 };

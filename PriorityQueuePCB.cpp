@@ -29,10 +29,8 @@ PriorityQueuePCB::PriorityQueuePCB(int TotalPriorityLevels)
 
 void PriorityQueuePCB::addPCB(PCB_ID_TYPE ID) //****need to make check if PriorityQueue (the vector) is big enough
 {
-	//check the PCB's priority level
-	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
-
-	std::shared_ptr<ProcessControlBlock> PCBptrtoBeAdded = getPCB(ID);
+	//gets a shared_ptr to point to the PCB from the PCB table with the exact identity ID.
+	std::shared_ptr<ProcessControlBlock> PCBptrtoBeAdded = getPCB(ID); //try using Auto to substitute the delcaration type
 
 	/* 
 	each element of the vector PriorityQueue contains a queue.
@@ -42,10 +40,17 @@ void PriorityQueuePCB::addPCB(PCB_ID_TYPE ID) //****need to make check if Priori
 	PriorityQueue[PCBptrTobeAdded->priority - 1].enQueue(ID); //the PCB shared vector is stored within the queue using the queue's enQueue method
 }
 
-ProcessControlBlock PriorityQueuePCB::removePCB()
+std::shared_ptr<ProcessControlBlock> PriorityQueuePCB::removePCB() //*****need to handle the case of empty priority queue/all queues empty, use isEmpty()
 {
-	//search linearly along the Priority queue's vector of queues.  the 1st queue that isn't empty pop off from that and return PCB
-	//if doing pointers for optimization, return a shared pointer to the object
+	//searches linearly along the Priority queue's vector of queues.  
+	//the 1st queue that isn't empty pop off from that and return PCB shared_ptr
+	for (int i = 0; i < PriorityQueue.size(); i++)
+	{
+		if (!PriorityQueue[i].isEmpty())
+		{
+			return (PriorityQueue[i].deQueue());
+		}
+	}
 
 }
 
