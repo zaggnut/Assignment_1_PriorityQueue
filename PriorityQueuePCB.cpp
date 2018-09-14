@@ -1,12 +1,5 @@
 
-#include <iostream>
-#include <vector>
-
 #include "PriorityQueuePCB.hpp"
-
-//these should already be included within PriorityQueuePCB.hpp
-#include "PCB.hpp"
-#include "PCB_Table.hpp"
 
 
 PriorityQueuePCB::~PriorityQueuePCB()
@@ -40,7 +33,7 @@ ProcessControlBlock PriorityQueuePCB::removePCB()
 
 }
 
-void PriorityQueuePCB::isEmpty()
+bool PriorityQueuePCB::isEmpty()
 {
 //go through the entire priorityQueue vector and check each queue for any PCB objects (call the queuePCB method)
 
