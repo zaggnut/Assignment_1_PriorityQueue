@@ -53,7 +53,7 @@ protected:
   //for random number generation
   std::default_random_engine rand;
 
-   //vector to hold all they keys, faster access for rng
+   //vector to hold all the keys, faster access for rng
   std::vector<PCB_ID_TYPE> keyVector;
 
 public:

@@ -10,6 +10,7 @@ Last Modification By: Michael Lingo
 
 
 #include "PCBqueue.hpp"
+#include <iostream>
 
 //puts the PCB object at the rear of the Queue
 void PCBqueue::enQueue(ProcessControlBlock PCBtoBeAdded)
@@ -24,11 +25,6 @@ ProcessControlBlock PCBqueue::deQueue()
 	queueList.pop_front(); //pops the PCB object from the front and returns it
 	return toRet;
 
-}
-
-ProcessControlBlock PCBqueue::peek()
-{
-	return queueList.front();
 }
 
 //prints out the content of the PCB queue
