@@ -15,6 +15,7 @@ Last Modification By: Michael Lingo
 #include "PCBqueue.hpp"
 #include "PCB.hpp"
 
+
 class PriorityQueuePCB
 {
 protected:
@@ -22,6 +23,8 @@ protected:
 	//vector of PCB queue objects.  Each queue should represent a set of PCBs with same priority level.
 	//This vector is declared, but has no PCB queue objects (its empty), should have a custom made construcutor to initialize it properly.
 	std::vector<PCBqueue> PriorityQueue; 
+	//maybe this should be a std::map from <map>?
+	//std::map<unsigned, PCBqueue> PriorityQueueS
 
 public:
 
