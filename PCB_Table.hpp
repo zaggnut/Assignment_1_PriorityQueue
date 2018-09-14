@@ -24,6 +24,13 @@ struct PCBKeyStruct //a helper struct to allow removing the key from the key vec
 {
   unsigned long processVectorIndex;
   std::shared_ptr<ProcessControlBlock> block;
+
+  PCBKeyStruct(unsigned long index_, std::shared_ptr<ProcessControlBlock> block_)
+  {
+    processVectorIndex = index_;
+    block = block_;
+  }
+
 };
 
 class InsertFailedException : public std::exception
@@ -67,7 +74,7 @@ public:
   unsigned long size();
 
   //stores a process control block, throws exception if store unsuccessful
-  void addNewPCB(std::shared_ptr<ProcessControlBlock> &process);
+  void addNewPCB(std::shared_ptr<ProcessControlBlock> process);
 
   //returns a refrence to a process control block, throws exception if not found
   std::shared_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);

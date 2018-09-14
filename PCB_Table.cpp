@@ -28,16 +28,19 @@ unsigned long PCB_Table::size()
     return keyVector.size();
 }
 
-void PCB_Table::addNewPCB(std::shared_ptr<ProcessControlBlock> &process)
+void PCB_Table::addNewPCB(std::shared_ptr<ProcessControlBlock> process)
 {
     if (ProcessMap.count(process->ID) != 0) //Is a process with this ID already in the map?
     {
         throw InsertFailedException();
     }
     keyVector.push_back(process->ID);
-
-    PCBKeyStruct toInsert{keyVector.size() - 1, process};
-    auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process->ID, toInsert));
+    //auto ret = ProcessMap.emplace(process->ID, keyVector.size() -1, process);
+    auto ret = ProcessMap.emplace(std::piecewise_construct, 
+        std::forward_as_tuple(process->ID),
+        std::forward_as_tuple(keyVector.size() - 1, process));
+    //PCBKeyStruct toInsert{keyVector.size() - 1, process};
+    //auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process->ID, toInsert));
     if (ret.second == false) //was the insert unsuccessful for some reason?
     {
         keyVector.pop_back(); //remove the recently added key
