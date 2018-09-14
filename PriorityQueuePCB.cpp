@@ -27,11 +27,19 @@ PriorityQueuePCB::PriorityQueuePCB(int TotalPriorityLevels)
 	PriorityQueue.reserve(TotalPriorityLevels); //the vector PriorityQueue now has reserved space for TotalPriorityLevels amount of Queue objects
 }
 
-void PriorityQueuePCB::addPCB(ProcessControlBlock PCBtoBeAdded)
+void PriorityQueuePCB::addPCB(PCB_ID_TYPE ID) //****need to make check if PriorityQueue (the vector) is big enough
 {
 	//check the PCB's priority level
 	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
 
+	std::shared_ptr<ProcessControlBlock> PCBptrtoBeAdded = getPCB(ID);
+
+	/* 
+	each element of the vector PriorityQueue contains a queue.
+	PCB's with priority 1 will be stored in the 1st index of the PriorityQueue vector (which is index 0)
+	A PCB with priority 50 will be stored in the queue at index 49.
+	*/
+	PriorityQueue[PCBptrTobeAdded->priority - 1].enQueue(ID); //the PCB shared vector is stored within the queue using the queue's enQueue method
 }
 
 ProcessControlBlock PriorityQueuePCB::removePCB()
