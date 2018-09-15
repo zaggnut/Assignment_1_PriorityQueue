@@ -40,13 +40,13 @@ void PriorityQueuePCB::addPCB(PCB_ID_TYPE ID) //****need to make check if Priori
 	PriorityQueue[PCBptrTobeAdded->priority - 1].enQueue(ID); //the PCB shared vector is stored within the queue using the queue's enQueue method
 }
 
-std::shared_ptr<ProcessControlBlock> PriorityQueuePCB::removePCB() //*****need to handle the case of empty priority queue/all queues empty, use isEmpty()
+std::shared_ptr<ProcessControlBlock> PriorityQueuePCB::removePCB() //*****need to handle the case of empty priority queue Make it throw a Dummy Exception Class
 {
 	//searches linearly along the Priority queue's vector of queues.  
 	//the 1st queue that isn't empty pop off from that and return PCB shared_ptr
 	for (int i = 0; i < PriorityQueue.size(); i++)
 	{
-		if (!PriorityQueue[i].isEmpty())
+		if (!PriorityQueue[i].isEmpty()) //calls PCBqueue::isEmpty(), not PriorityQueuePCB::isEmpty()
 		{
 			return (PriorityQueue[i].deQueue());
 		}
@@ -58,10 +58,23 @@ void PriorityQueuePCB::isEmpty()
 {
 //go through the entire priorityQueue vector and check each queue for any PCB objects (call the queuePCB method)
 
+	for (int i = 0; i < PriorityQueue.size(); i++)
+	{
+		//if any queue has an item ==>return false
+		if (!PriorityQueue[i].isEmpty()) //calls PCBqueue::isEmpty()
+		{
+			return (false); //a PCBqueue had an item ==> return false
+		}
+	}
+
+	return (true); //all the queues are empty ==> return true
 }
 
 void PriorityQueuePCB::PrintPriorityQueue()
 {
 	//traverse the priority queue's vector and call the print method of each queue
-
+	for (int i = 0; i < PriorityQueue.size(); i++)
+	{
+		PriorityQueue[i].printQueue(); //prints the content of a PCBqueue (PCB objects)
+	}
 }
