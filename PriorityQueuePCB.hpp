@@ -21,8 +21,10 @@ class PriorityQueuePCB
 {
 protected:
 
-	
+	//a map of queues that are seperated based on their programmer's designated priority levels
 	std::map<int, PCBqueue> PriorityQueue; //the key of the map is for priority level, the mapped value is a PCBqueue object 
+											//NOTE::: you may want to change the int data type to unsigned
+
 	int PCBptrCount; //used to count number of PCB items are stored in the priorityqueue.  usefull in its Size() and isEmpty() function
 
 public:
