@@ -65,6 +65,7 @@ void test2(PCB_Table& table, PriorityQueuePCB& queue)
         { //add
             if(!KeysNotInQueue.empty())
             {
+                //swap a random key with the one at the end and pop_back
                 unsigned pos = rand() % KeysNotInQueue.size();
                 unsigned toSwap = KeysNotInQueue[pos];
                 auto block = table.getPCB(toSwap);
