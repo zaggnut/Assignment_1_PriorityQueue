@@ -14,6 +14,10 @@
 #include <random>
 #include <chrono>
 
+
+#define LIKELY(condition) __builtin_expect(static_cast<bool>(condition), 1)
+//macro to hint to the compiler that the following branch is the likely outcome
+
 void test1(PCB_Table &table, PriorityQueuePCB &queue)
 {
     //add 5, 1, 8, and 11
@@ -62,7 +66,7 @@ void test2(PCB_Table &table, PriorityQueuePCB &queue)
     {
         if (rand() % 2 == 0) //50:50 chance of remove or add
         {                    //add
-            if (!KeysNotInQueue.empty())
+            if (LIKELY(!KeysNotInQueue.empty()))
             {
                 //swap a random key with the one at the end and pop_back
                 unsigned pos = rand() % KeysNotInQueue.size();
@@ -78,7 +82,7 @@ void test2(PCB_Table &table, PriorityQueuePCB &queue)
         }
         else
         { //remove from queue, add to list not in queue
-            if (!queue.isEmpty())
+            if (LIKELY(!queue.isEmpty()))
             {
                 auto block = queue.removePCB();
                 block->state = processState::RUNNING;
