@@ -21,13 +21,16 @@
 
 //stores refrences to process control blocks
 
-struct PCBKeyStruct //a helper struct to allow removing the key from the key vector easier
+class PCBKeyClass //a helper struct to allow removing the key from the key vector easier
 {
+protected:
+  static __gnu_cxx::bitmap_allocator<PCBKeyClass> allocator;
+
+public:
   unsigned long processVectorIndex;
   std::shared_ptr<ProcessControlBlock> block;
-  static __gnu_cxx::bitmap_allocator<PCBKeyStruct> allocator;
 
-  PCBKeyStruct(unsigned long index_, std::shared_ptr<ProcessControlBlock> block_)
+  PCBKeyClass(unsigned long index_, std::shared_ptr<ProcessControlBlock> block_)
   {
     processVectorIndex = index_;
     block = block_;
@@ -39,9 +42,8 @@ struct PCBKeyStruct //a helper struct to allow removing the key from the key vec
   }
   static void operator delete(void *block)
   {
-    allocator.deallocate( (PCBKeyStruct*) block, sizeof(PCBKeyStruct));
+    allocator.deallocate((PCBKeyClass *)block, sizeof(PCBKeyClass));
   }
-
 };
 
 class InsertFailedException : public std::exception
@@ -66,17 +68,17 @@ class PCB_Table
 {
 protected:
   //map to hold the data
-  std::unordered_map<PCB_ID_TYPE, 
-                    PCBKeyStruct, 
-                    std::hash<PCB_ID_TYPE>, 
-                    std::equal_to<PCB_ID_TYPE>,
-                    __gnu_cxx::bitmap_allocator<std::pair<const PCB_ID_TYPE, PCBKeyStruct>>
-                    > ProcessMap;
+  std::unordered_map<PCB_ID_TYPE,
+                     PCBKeyClass,
+                     std::hash<PCB_ID_TYPE>,
+                     std::equal_to<PCB_ID_TYPE>,
+                     __gnu_cxx::bitmap_allocator<std::pair<const PCB_ID_TYPE, PCBKeyClass>>>
+      ProcessMap;
 
   //for random number generation
   std::default_random_engine rand;
 
-   //vector to hold all they keys, faster access for rng
+  //vector to hold all they keys, faster access for rng
   std::vector<PCB_ID_TYPE> keyVector;
 
 public:
@@ -103,7 +105,7 @@ public:
 
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   std::shared_ptr<ProcessControlBlock> removeRandomPCB();
-  
+
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   void clear();
 };

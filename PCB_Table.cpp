@@ -2,7 +2,7 @@
     PCB Table implementation file, requires C++14
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/04/18
+    Last Update: 9/15/18
     Last Update By: Michael Lingo
 
 */
@@ -84,7 +84,7 @@ std::shared_ptr<ProcessControlBlock> PCB_Table::removePCB(PCB_ID_TYPE ID)
     {
         throw ProcessNotFoundException();
     }
-    PCBKeyStruct removedBlock = ProcessMap.at(ID);
+    PCBKeyClass removedBlock = ProcessMap.at(ID);
     if (ProcessMap.size() > 1) //no point in doing this if there is only one item in the map
     {
         unsigned toSwap = removedBlock.processVectorIndex;
