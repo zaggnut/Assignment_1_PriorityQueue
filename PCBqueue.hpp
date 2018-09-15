@@ -14,7 +14,7 @@ Last Modification By: Michael Lingo
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include <ext/bitmap_allocator.h>
+#include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 #include <memory>
 
 
@@ -23,7 +23,9 @@ Last Modification By: Michael Lingo
 class PCBqueue
 {
   protected:
-	std::list<std::shared_ptr<ProcessControlBlock>, __gnu_cxx::bitmap_allocator<std::shared_ptr<ProcessControlBlock>>> queueList; //doubly linked list in std library, used to hold PCB objects in an ordered fashion
+	std::list<std::shared_ptr<ProcessControlBlock>, 
+						__gnu_cxx::bitmap_allocator<std::shared_ptr<ProcessControlBlock>>
+						> queueList; //doubly linked list in std library, used to hold PCB objects in an ordered fashion
   public:
 	void enQueue(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded); //adds the PCB object to rear of the queue
 	std::shared_ptr<ProcessControlBlock> peek();							//look at the front without removing

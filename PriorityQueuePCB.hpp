@@ -12,18 +12,18 @@ Last Modification By: Michael Lingo
 #include <iostream>
 #include <map>
 #include <memory>
-#include <ext/bitmap_allocator.h>
+#include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 #include "PCBqueue.hpp"
 #include "PCB.hpp"
 
-//typedef __gnu_cxx::__pool_alloc<PCBqueue> Map_allocator;
-
 class PriorityQueuePCB
 {
-  protected:
-	std::map<unsigned, PCBqueue, std::less<unsigned> ,__gnu_cxx::bitmap_allocator<std::pair<unsigned,PCBqueue>>> PriorityQueue;
-  public:
+protected:
+	std::map<unsigned, PCBqueue, std::less<unsigned>, 
+					__gnu_cxx::bitmap_allocator<std::pair<unsigned, PCBqueue>>
+					> PriorityQueue;
 
+public:
 	void addPCB(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded);
 	std::shared_ptr<ProcessControlBlock> removePCB();
 	bool isEmpty();

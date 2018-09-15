@@ -17,7 +17,7 @@
 #include <stdexcept>
 #include <random>
 #include <chrono>
-#include <ext/bitmap_allocator.h>
+#include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 
 //stores refrences to process control blocks
 
@@ -25,11 +25,21 @@ struct PCBKeyStruct //a helper struct to allow removing the key from the key vec
 {
   unsigned long processVectorIndex;
   std::shared_ptr<ProcessControlBlock> block;
+  static __gnu_cxx::bitmap_allocator<PCBKeyStruct> allocator;
 
   PCBKeyStruct(unsigned long index_, std::shared_ptr<ProcessControlBlock> block_)
   {
     processVectorIndex = index_;
     block = block_;
+  }
+
+  static void *operator new(std::size_t size)
+  {
+    return allocator.allocate(size);
+  }
+  static void operator delete(void *block)
+  {
+    allocator.deallocate( (PCBKeyStruct*) block, sizeof(PCBKeyStruct));
   }
 
 };
