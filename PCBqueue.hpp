@@ -14,18 +14,20 @@ Last Modification By: Michael Lingo
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <memory>
+
 
 #include "PCB.hpp"
 
 class PCBqueue
 {
   protected:
-	std::list<ProcessControlBlock> queueList; //doubly linked list in std library, used to hold PCB objects in an ordered fashion
+	std::list<std::shared_ptr<ProcessControlBlock>> queueList; //doubly linked list in std library, used to hold PCB objects in an ordered fashion
   public:
-	void enQueue(ProcessControlBlock PCBtoBeAdded); //adds the PCB object to rear of the queue
-	ProcessControlBlock peek();							//look at the front without removing
-	ProcessControlBlock deQueue();					//removes the PCB object from the front of the queue
-	void printQueue();								//prints out all PCB objects of the queue
+	void enQueue(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded); //adds the PCB object to rear of the queue
+	std::shared_ptr<ProcessControlBlock> peek();							//look at the front without removing
+	std::shared_ptr<ProcessControlBlock> deQueue();					//removes the PCB object from the front of the queue
+	void printQueue() const;								//prints out all PCB objects of the queue
 	void printLeadingPCB();							//prints out the PCB object in the front of the queue
 	bool isEmpty();									//returns true if the queue is empty, else returns false
 };

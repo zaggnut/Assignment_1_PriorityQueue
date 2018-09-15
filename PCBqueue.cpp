@@ -12,13 +12,13 @@ Last Modification By: Michael Lingo
 #include "PCBqueue.hpp"
 
 //puts the PCB object at the rear of the Queue
-void PCBqueue::enQueue(ProcessControlBlock PCBtoBeAdded)
+void PCBqueue::enQueue(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded)
 {
 	queueList.push_back(PCBtoBeAdded); // adds the PCB object to the rear
 }
 
 //removes the PCB object that is at the front of the Queue and returns it
-ProcessControlBlock PCBqueue::deQueue()
+std::shared_ptr<ProcessControlBlock> PCBqueue::deQueue()
 {
 	auto toRet = queueList.front();
 	queueList.pop_front(); //pops the PCB object from the front and returns it
@@ -26,23 +26,23 @@ ProcessControlBlock PCBqueue::deQueue()
 
 }
 
-ProcessControlBlock PCBqueue::peek()
+std::shared_ptr<ProcessControlBlock> PCBqueue::peek()
 {
 	return queueList.front();
 }
 
 //prints out the content of the PCB queue
-void PCBqueue::printQueue()
+void PCBqueue::printQueue() const
 {
 	if (queueList.size() != 0)
 	{
-		std::cout << "Process Control Blocks of the Queue" << std::endl;
+		//std::cout << "Process Control Blocks of the Queue" << std::endl;
 
 		//pointer p of PCB objects traverses through the List and the beginning until it reaches the end
 		//each PCB object in the List is printed
 		for (auto p = queueList.cbegin(); p != queueList.end(); p++)
 		{
-			std::cout << *p << std::endl; //the PCB object pointed to by p is printed
+			std::cout << **p << std::endl; //the PCB object pointed to by p is printed
 		}
 	}
 }

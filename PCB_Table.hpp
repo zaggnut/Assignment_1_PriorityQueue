@@ -78,7 +78,7 @@ public:
   void addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority);
 
   //returns a refrence to a process control block, throws exception if not found
-  std::shared_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);
+  std::shared_ptr<ProcessControlBlock> getPCB(PCB_ID_TYPE processID);
 
   const std::vector<PCB_ID_TYPE> &getKeyVector() const;
 

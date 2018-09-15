@@ -53,7 +53,7 @@ void test2(PCB_Table& table, PriorityQueuePCB& queue)
         unsigned pos = rand() % KeysNotInQueue.size();
         unsigned toSwap = KeysNotInQueue[pos];
         auto block = table.getPCB(toSwap);
-        block->priority = rand() % 50 + 1;
+        block->priority = rand() % 49 + 1;
         queue.addPCB(block);
         KeysNotInQueue[pos] = KeysNotInQueue[KeysNotInQueue.size() - 1];
         KeysNotInQueue.pop_back();
@@ -69,7 +69,7 @@ void test2(PCB_Table& table, PriorityQueuePCB& queue)
                 unsigned pos = rand() % KeysNotInQueue.size();
                 unsigned toSwap = KeysNotInQueue[pos];
                 auto block = table.getPCB(toSwap);
-                block->priority = rand() % 50 + 1;
+                block->priority = rand() % 49 + 1;
                 queue.addPCB(block);
                 KeysNotInQueue[pos] = KeysNotInQueue[KeysNotInQueue.size() - 1];
                 KeysNotInQueue.pop_back();
@@ -98,7 +98,7 @@ void test2(PCB_Table& table, PriorityQueuePCB& queue)
 int main()
 {
     PCB_Table table{20};
-    PriorityQueuePCB queue{50};
+    PriorityQueuePCB queue;
     try
     {
         for(unsigned i = 1; i <= 20; i++)

@@ -48,11 +48,11 @@ std::ostream &operator<<(std::ostream &os, const processState state)
 std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process)
 {
     os << std::right; //align right
-    os.width(6);
+    os.width(5);
     os << process.ID;
-    os.width(12);
+    os.width(10);
     os << process.state;
-    os.width(6);
+    os.width(12);
     os << process.priority;
     return os;
 }

@@ -64,7 +64,7 @@ void PCB_Table::addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority
 
 }
 
-std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
+std::shared_ptr<ProcessControlBlock> PCB_Table::getPCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
     {

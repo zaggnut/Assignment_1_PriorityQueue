@@ -7,7 +7,7 @@ CFLAGS = -O2 -Wall -std=c++14              # compilation flags: -g for debugging
 LIB = -lm                       # linked libraries      
 LDFLAGS = -L.                   # link flags
 PROG = a.out                   # target executable (output)
-SRC = PCB.cpp main.cpp PCB_Table.cpp        # .c or .cpp source files.
+SRC = PCB.cpp main.cpp PCB_Table.cpp PriorityQueuePCB.cpp PCBqueue.cpp        # .c or .cpp source files.
 OBJ = $(SRC:.cpp=.o)    # object files for the target. Add more to this and next lines if there are more than one source files.
 
 all : $(PROG)
