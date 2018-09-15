@@ -48,6 +48,22 @@ void PCB_Table::addNewPCB(std::shared_ptr<ProcessControlBlock> process)
     }
 }
 
+void PCB_Table::addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority)
+{
+    keyVector.push_back(ID_);
+    auto ret = ProcessMap.emplace(std::piecewise_construct, 
+        std::forward_as_tuple(ID_),
+        std::forward_as_tuple(keyVector.size() - 1,
+        createPCB(state, ID_, Priority)));
+
+    if(ret.second == false)
+    {
+        keyVector.pop_back();
+        throw InsertFailedException();
+    }
+
+}
+
 std::shared_ptr<ProcessControlBlock> &PCB_Table::getPCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
