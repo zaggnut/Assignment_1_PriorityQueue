@@ -97,10 +97,10 @@ void test2(PCB_Table& table, PriorityQueuePCB& queue)
 
 int main()
 {
-    PCB_Table table{100};
+    PCB_Table table{20};
     PriorityQueuePCB queue;
-    try
-    {
+    //try
+    //{
         for(unsigned i = 1; i <= 20; i++)
         {
             //auto block = createPCB(processState::NEW, i, i % 50 + 1);
@@ -109,14 +109,14 @@ int main()
         test1(table, queue);
         test2(table, queue);
         
-    }
-    catch(InsertFailedException e)
+    //}
+    /*catch(InsertFailedException e)
     {
         std::cout << e.what() << std::endl;
     }
     catch(ProcessNotFoundException e)
     {
         std::cout << e.what() << std::endl;
-    }
+    }*/
     return 0;
 }
