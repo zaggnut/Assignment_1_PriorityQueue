@@ -51,11 +51,11 @@ class ProcessControlBlock
 
     static void *operator new(std::size_t size)
     {
-        return allocator.allocate(size);
+        return allocator._M_allocate_single_object();
     }
     static void operator delete(void *block)
     {
-        allocator.deallocate((ProcessControlBlock *)block, sizeof(ProcessControlBlock));
+        allocator._M_deallocate_single_object((ProcessControlBlock *)block);
     }
 };
 

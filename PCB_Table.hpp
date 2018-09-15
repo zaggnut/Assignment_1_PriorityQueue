@@ -38,11 +38,11 @@ public:
 
   static void *operator new(std::size_t size)
   {
-    return allocator.allocate(size);
+    return allocator._M_allocate_single_object();
   }
   static void operator delete(void *block)
   {
-    allocator.deallocate((PCBKeyClass *)block, sizeof(PCBKeyClass));
+    allocator._M_deallocate_single_object((PCBKeyClass*) block);
   }
 };
 
