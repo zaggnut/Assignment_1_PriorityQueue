@@ -16,14 +16,12 @@ Last Modification By: Michael Lingo
 //the shared pointer to the PCB will be stored in the back of the queue
 void PCBqueue::enQueue(PCB_ID_TYPE ID)
 {
-	queueList.push_back(PCB_Table::getPCB(ID)); //************Not sure if this works. getPCB returns an ADDRESS of a shared_ptr
+	queueList.push_back( *(PCB_Table::getPCB(ID)) ); //************Not sure if this works. getPCB returns an ADDRESS of a shared_ptr
 }
 
-//removes the leading PCB shared_ptr of the queue and returns it. :::Note::: std::list pop_front() does not return anything 
+//removes the leading PCB shared_ptr of the queue and returns it. :::Note::: std::list::pop_front() does not return anything. use .front()
 std::shared_ptr<ProcessControlBlock> PCBqueue::deQueue()
 {
-	//return(queueList.pop_front()); pop_front does not return anything, this does not work
-
 	std::shared_ptr<ProcessControlBlock> PCBptrToBeRemoved = queuelist.front();
 	queueList.pop_front();
 
