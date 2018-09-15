@@ -13,7 +13,7 @@
 #include <iostream>
 #include <cstdint>
 #include <memory>
-
+#include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 typedef uint_fast32_t PCB_ID_TYPE;
 
 //each possible valid processs state type
@@ -27,8 +27,12 @@ enum class processState
 };
 
 //struct to hold each PCB
-struct ProcessControlBlock
+class ProcessControlBlock
 {
+  protected:
+    static __gnu_cxx::bitmap_allocator<ProcessControlBlock> allocator;
+
+  public:
     //the current state of the process
     processState state;
 
@@ -43,6 +47,15 @@ struct ProcessControlBlock
     {
         state = state_;
         priority = priority_;
+    }
+
+    static void *operator new(std::size_t size)
+    {
+        return allocator.allocate(size);
+    }
+    static void operator delete(void *block)
+    {
+        allocator.deallocate((ProcessControlBlock *)block, sizeof(ProcessControlBlock));
     }
 };
 
