@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <random>
 #include <chrono>
+#include <ext/bitmap_allocator.h>
 
 //stores refrences to process control blocks
 
@@ -55,7 +56,12 @@ class PCB_Table
 {
 protected:
   //map to hold the data
-  std::unordered_map<PCB_ID_TYPE, PCBKeyStruct> ProcessMap;
+  std::unordered_map<PCB_ID_TYPE, 
+                    PCBKeyStruct, 
+                    std::hash<PCB_ID_TYPE>, 
+                    std::equal_to<PCB_ID_TYPE>,
+                    __gnu_cxx::bitmap_allocator<std::pair<const PCB_ID_TYPE, PCBKeyStruct>>
+                    > ProcessMap;
 
   //for random number generation
   std::default_random_engine rand;
