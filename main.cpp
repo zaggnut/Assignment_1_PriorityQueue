@@ -97,7 +97,7 @@ void test2(PCB_Table& table, PriorityQueuePCB& queue)
 
 int main()
 {
-    PCB_Table table{20};
+    PCB_Table table{100};
     PriorityQueuePCB queue;
     try
     {
