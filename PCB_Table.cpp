@@ -117,6 +117,10 @@ ProcessControlBlock* PCB_Table::removeRandomPCB()
 
 void PCB_Table::clear()
 {
+    for(auto it : ProcessMap)
+    {
+        delete it.second.block;
+    }
     ProcessMap.clear();
     keyVector.clear();
 }
