@@ -25,7 +25,7 @@ PCB_Table::PCB_Table(unsigned initialSize)
 
 PCB_Table::~PCB_Table() //calls delete on everything in the table
 {
-    for(auto it : ProcessMap)
+    for (auto it : ProcessMap)
     {
         delete it.second.block;
     }
@@ -37,7 +37,7 @@ unsigned long PCB_Table::size()
     return keyVector.size();
 }
 
-void PCB_Table::addNewPCB(ProcessControlBlock* process)
+void PCB_Table::addNewPCB(ProcessControlBlock *process)
 {
     if (ProcessMap.count(process->ID) != 0) //Is a process with this ID already in the map?
     {
@@ -45,9 +45,9 @@ void PCB_Table::addNewPCB(ProcessControlBlock* process)
     }
     keyVector.push_back(process->ID);
     //auto ret = ProcessMap.emplace(process->ID, keyVector.size() -1, process);
-    auto ret = ProcessMap.emplace(std::piecewise_construct, 
-        std::forward_as_tuple(process->ID),
-        std::forward_as_tuple(keyVector.size() - 1, process));
+    auto ret = ProcessMap.emplace(std::piecewise_construct,
+                                  std::forward_as_tuple(process->ID),
+                                  std::forward_as_tuple(keyVector.size() - 1, process));
     //PCBKeyStruct toInsert{keyVector.size() - 1, process};
     //auto ret = ProcessMap.insert(std::pair<PCB_ID_TYPE, PCBKeyStruct>(process->ID, toInsert));
     if (ret.second == false) //was the insert unsuccessful for some reason?
@@ -60,20 +60,19 @@ void PCB_Table::addNewPCB(ProcessControlBlock* process)
 void PCB_Table::addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority)
 {
     keyVector.push_back(ID_);
-    auto ret = ProcessMap.emplace(std::piecewise_construct, 
-        std::forward_as_tuple(ID_),
-        std::forward_as_tuple(keyVector.size() - 1,
-        new ProcessControlBlock(state, ID_, Priority)));
+    auto ret = ProcessMap.emplace(std::piecewise_construct,
+                                  std::forward_as_tuple(ID_),
+                                  std::forward_as_tuple(keyVector.size() - 1,
+                                                        new ProcessControlBlock(state, ID_, Priority)));
 
-    if(ret.second == false)
+    if (ret.second == false)
     {
         keyVector.pop_back();
         throw InsertFailedException();
     }
-
 }
 
-ProcessControlBlock* PCB_Table::getPCB(PCB_ID_TYPE ID)
+ProcessControlBlock *PCB_Table::getPCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
     {
@@ -87,7 +86,7 @@ const std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector() const
     return keyVector;
 }
 
-ProcessControlBlock* PCB_Table::removePCB(PCB_ID_TYPE ID)
+ProcessControlBlock *PCB_Table::removePCB(PCB_ID_TYPE ID)
 {
     if (ProcessMap.count(ID) == 0)
     {
@@ -105,7 +104,7 @@ ProcessControlBlock* PCB_Table::removePCB(PCB_ID_TYPE ID)
     return removedBlock.block;
 }
 
-ProcessControlBlock* PCB_Table::removeRandomPCB()
+ProcessControlBlock *PCB_Table::removeRandomPCB()
 {
     if (ProcessMap.empty())
     {
@@ -117,7 +116,7 @@ ProcessControlBlock* PCB_Table::removeRandomPCB()
 
 void PCB_Table::clear()
 {
-    for(auto it : ProcessMap)
+    for (auto it : ProcessMap)
     {
         delete it.second.block;
     }
