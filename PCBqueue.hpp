@@ -10,6 +10,7 @@ Last Modification By: Michael Lingo
 #ifndef PCBqueue_HPP
 #define PCBqueue_HPP
 
+#include "PCB.hpp"
 #include <list>
 #include <iostream>
 #include <iomanip>
@@ -17,7 +18,7 @@ Last Modification By: Michael Lingo
 #include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 #include <memory>
 
-#include "PCB.hpp"
+
 
 class PCBqueue
 {

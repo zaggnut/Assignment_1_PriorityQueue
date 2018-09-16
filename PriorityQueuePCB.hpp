@@ -9,12 +9,13 @@ Last Modification By: Michael Lingo
 #ifndef PriorityQueuePCB_HPP
 #define PriorityQueuePCB_HPP
 
+#include "PCB.hpp"
 #include <iostream>
 #include <map>
 #include <memory>
 #include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 #include "PCBqueue.hpp"
-#include "PCB.hpp"
+
 
 class PriorityQueuePCB
 {

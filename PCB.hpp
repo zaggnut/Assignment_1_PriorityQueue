@@ -1,5 +1,5 @@
 /*
-    PCB header file, requires C++14
+    PCB header file, requires C++14 and gcc
     Created By: Michael Lingo
     Created On: 8/31/18
     Last Update: 9/16/18
@@ -14,6 +14,7 @@
 #ifndef PCB_HPP //header guards to include only once
 #define PCB_HPP
 
+#define __cpp_alligned_new
 #include <iostream>
 #include <cstdint>
 #include <memory>
