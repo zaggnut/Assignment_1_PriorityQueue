@@ -39,10 +39,6 @@ unsigned long PCB_Table::size()
 
 void PCB_Table::addNewPCB(ProcessControlBlock *process)
 {
-    if (ProcessMap.count(process->ID) != 0) //Is a process with this ID already in the map?
-    {
-        throw InsertFailedException();
-    }
     keyVector.push_back(process->ID);
     //auto ret = ProcessMap.emplace(process->ID, keyVector.size() -1, process);
     auto ret = ProcessMap.emplace(std::piecewise_construct,
@@ -74,10 +70,6 @@ void PCB_Table::addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority
 
 ProcessControlBlock *PCB_Table::getPCB(PCB_ID_TYPE ID)
 {
-    if (ProcessMap.count(ID) == 0)
-    {
-        throw ProcessNotFoundException();
-    }
     return ProcessMap.at(ID).block;
 }
 
@@ -88,10 +80,6 @@ const std::vector<PCB_ID_TYPE> &PCB_Table::getKeyVector() const
 
 ProcessControlBlock *PCB_Table::removePCB(PCB_ID_TYPE ID)
 {
-    if (ProcessMap.count(ID) == 0)
-    {
-        throw ProcessNotFoundException();
-    }
     PCBKeyClass removedBlock = ProcessMap.at(ID);
     if (ProcessMap.size() > 1) //no point in doing this if there is only one item in the map
     {
