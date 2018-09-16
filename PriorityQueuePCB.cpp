@@ -1,3 +1,11 @@
+/*
+Purpose: Implement the class PriorityQueuePCB for ProcessControlBlock objects.
+Creation Date: 9/12/2018
+Created By: Shane Laskowski
+Date Of Last Modifcation: 9/16/2018
+Last Modification By: Michael Lingo
+*/
+
 
 #include "PriorityQueuePCB.hpp"
 
