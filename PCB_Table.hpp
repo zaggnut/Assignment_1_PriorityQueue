@@ -28,9 +28,9 @@ protected:
 
 public:
   unsigned long processVectorIndex;
-  std::shared_ptr<ProcessControlBlock> block;
+  ProcessControlBlock* block;
 
-  PCBKeyClass(unsigned long index_, std::shared_ptr<ProcessControlBlock> block_)
+  PCBKeyClass(unsigned long index_, ProcessControlBlock* block_)
   {
     processVectorIndex = index_;
     block = block_;
@@ -88,23 +88,25 @@ public:
   //set an initial size
   PCB_Table(unsigned initialSize);
 
+  ~PCB_Table();
+
   //returns the number of PCBs in the Table
   unsigned long size();
 
   //stores a process control block, throws exception if store unsuccessful
-  void addNewPCB(std::shared_ptr<ProcessControlBlock> process);
+  void addNewPCB(ProcessControlBlock* process);
   void addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority);
 
   //returns a refrence to a process control block, throws exception if not found
-  std::shared_ptr<ProcessControlBlock> getPCB(PCB_ID_TYPE processID);
+  ProcessControlBlock* getPCB(PCB_ID_TYPE processID);
 
   const std::vector<PCB_ID_TYPE> &getKeyVector() const;
 
   //removes a specific PCB from the table
-  std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID);
+  ProcessControlBlock* removePCB(PCB_ID_TYPE processID);
 
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
-  std::shared_ptr<ProcessControlBlock> removeRandomPCB();
+  ProcessControlBlock* removeRandomPCB();
 
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
   void clear();

@@ -1,7 +1,7 @@
 
 #include "PriorityQueuePCB.hpp"
 
-void PriorityQueuePCB::addPCB(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded)
+void PriorityQueuePCB::addPCB(ProcessControlBlock* PCBtoBeAdded)
 {
 	PCBtoBeAdded->state = processState::READY;
 	PriorityQueue[PCBtoBeAdded->priority].enQueue(PCBtoBeAdded);
@@ -9,7 +9,7 @@ void PriorityQueuePCB::addPCB(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded)
 	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
 }
 
-std::shared_ptr<ProcessControlBlock> PriorityQueuePCB::removePCB()
+ProcessControlBlock* PriorityQueuePCB::removePCB()
 {
 	auto toDequeue = PriorityQueue.begin();
 	auto toReturn = toDequeue->second.deQueue();

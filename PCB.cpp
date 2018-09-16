@@ -8,14 +8,17 @@
 */
 
 #include "PCB.hpp"
-#include <memory>
+
+__gnu_cxx::bitmap_allocator<ProcessControlBlock> ProcessControlBlock::allocator;
+//has to be declared in the .cpp file too or the linker has a problem
+
 
 //PCB factory
-std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
+ProcessControlBlock* ProcessControlBlock::createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
 {
     //std::shared_ptr<ProcessControlBlock> block(new ProcessControlBlock{state, ID, priority});
     //return block;
-    return std::make_shared<ProcessControlBlock>(state,ID,priority);
+    return new ProcessControlBlock(state,ID,priority);
 }
 
 //to string for process states

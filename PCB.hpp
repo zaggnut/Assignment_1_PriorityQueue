@@ -30,13 +30,13 @@ enum class processState
     TERMINATED
 };
 
+
+
 //struct to hold each PCB
 class ProcessControlBlock
 {
-  protected:
-    static __gnu_cxx::bitmap_allocator<ProcessControlBlock> allocator;
-
   public:
+    static __gnu_cxx::bitmap_allocator<ProcessControlBlock> allocator;
     //the current state of the process
     processState state;
 
@@ -53,6 +53,9 @@ class ProcessControlBlock
         priority = priority_;
     }
 
+    //for other non-raw pointer types
+    static ProcessControlBlock* createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
+
     static void *operator new(std::size_t size)
     {
         return allocator._M_allocate_single_object();
@@ -62,8 +65,6 @@ class ProcessControlBlock
         allocator._M_deallocate_single_object((ProcessControlBlock *)block);
     }
 };
-
-std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
 
 //converts a process state to it's string equivalent
 std::ostream &operator<<(std::ostream &os, const processState state);

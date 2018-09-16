@@ -24,8 +24,8 @@ class PriorityQueuePCB
 		PriorityQueue;
 
   public:
-	void addPCB(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded);
-	std::shared_ptr<ProcessControlBlock> removePCB();
+	void addPCB(ProcessControlBlock* PCBtoBeAdded);
+	ProcessControlBlock* removePCB();
 	bool isEmpty();
 	void PrintPriorityQueue();
 };

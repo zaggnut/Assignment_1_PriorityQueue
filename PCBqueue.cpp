@@ -12,13 +12,13 @@ Last Modification By: Michael Lingo
 #include "PCBqueue.hpp"
 
 //puts the PCB object at the rear of the Queue
-void PCBqueue::enQueue(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded)
+void PCBqueue::enQueue(ProcessControlBlock* PCBtoBeAdded)
 {
 	queueList.push_back(PCBtoBeAdded); // adds the PCB object to the rear
 }
 
 //removes the PCB object that is at the front of the Queue and returns it
-std::shared_ptr<ProcessControlBlock> PCBqueue::deQueue()
+ProcessControlBlock* PCBqueue::deQueue()
 {
 	auto toRet = queueList.front();
 	queueList.pop_front(); //pops the PCB object from the front and returns it
@@ -26,7 +26,7 @@ std::shared_ptr<ProcessControlBlock> PCBqueue::deQueue()
 
 }
 
-std::shared_ptr<ProcessControlBlock> PCBqueue::peek()
+ProcessControlBlock* PCBqueue::peek()
 {
 	return queueList.front();
 }
