@@ -42,7 +42,7 @@ public:
   }
   static void operator delete(void *block)
   {
-    allocator._M_deallocate_single_object((PCBKeyClass*) block);
+    allocator._M_deallocate_single_object((PCBKeyClass *)block);
   }
 };
 

@@ -18,12 +18,12 @@ Last Modification By: Michael Lingo
 
 class PriorityQueuePCB
 {
-protected:
-	std::map<unsigned, PCBqueue, std::less<unsigned>, 
-					__gnu_cxx::bitmap_allocator<std::pair<unsigned, PCBqueue>>
-					> PriorityQueue;
+  protected:
+	std::map<unsigned, PCBqueue, std::less<unsigned>,
+			 __gnu_cxx::bitmap_allocator<std::pair<unsigned, PCBqueue>>>
+		PriorityQueue;
 
-public:
+  public:
 	void addPCB(std::shared_ptr<ProcessControlBlock> PCBtoBeAdded);
 	std::shared_ptr<ProcessControlBlock> removePCB();
 	bool isEmpty();
