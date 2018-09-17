@@ -23,12 +23,8 @@ class PriorityQueuePCB
 	std::map<unsigned, PCBqueue, std::less<unsigned>,
 			 __gnu_cxx::bitmap_allocator<std::pair<unsigned, PCBqueue>>>
 		PriorityQueue;
-	std::map<unsigned, PCBqueue,std::less<unsigned>,
-			 __gnu_cxx::bitmap_allocator<std::pair<unsigned, PCBqueue>>
-			 >::iterator highest;
 
   public:
-	PriorityQueuePCB();
 	void addPCB(ProcessControlBlock* PCBtoBeAdded);
 	ProcessControlBlock* removePCB();
 	bool isEmpty();

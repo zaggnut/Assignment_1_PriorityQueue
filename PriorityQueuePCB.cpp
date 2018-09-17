@@ -10,43 +10,32 @@ Last Modification By: Michael Lingo
 #include "PriorityQueuePCB.hpp"
 
 
-PriorityQueuePCB::PriorityQueuePCB()
-{
-	highest = PriorityQueue.end();
-}
-
 void PriorityQueuePCB::addPCB(ProcessControlBlock* PCBtoBeAdded)
 {
 	PCBtoBeAdded->state = processState::READY;
 	PriorityQueue[PCBtoBeAdded->priority].enQueue(PCBtoBeAdded);
-	if(PriorityQueue.size() == 1 || PCBtoBeAdded->priority < highest->first)
-	{
-		highest--;
-	}
 	//check the PCB's priority level
-	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
+	//insert into correct place
 }
 
 ProcessControlBlock* PriorityQueuePCB::removePCB()
 {
 
-	//auto toDequeue = PriorityQueue.begin();
-	auto toReturn = highest->second.deQueue();
-	if (highest->second.isEmpty())
+	auto toDequeue = PriorityQueue.begin();
+	auto toReturn = toDequeue->second.deQueue();
+	if (toDequeue->second.isEmpty())
 	{
-		highest++;
-		PriorityQueue.erase(toReturn->priority);
+		PriorityQueue.erase(toDequeue);
 	}
 	return toReturn;
 
-	//search linearly along the Priority queue's vector of queues.  the 1st queue that isn't empty pop off from that and return PCB
-	//if doing pointers for optimization, return a shared pointer to the object
+	//begin iterator always points to the highest priority
 }
 
 bool PriorityQueuePCB::isEmpty()
 {
 	return PriorityQueue.empty();
-	//go through the entire priorityQueue vector and check each queue for any PCB objects (call the queuePCB method)
+	//true if the map object is empty
 }
 
 void PriorityQueuePCB::PrintPriorityQueue()
@@ -69,5 +58,5 @@ void PriorityQueuePCB::PrintPriorityQueue()
 		//std::cout << "Priority: " << it->first << std::endl;
 		it->second.printQueue();
 	}
-	//traverse the priority queue's vector and call the print method of each queue
+	//traverse the priority queue's map and call the print method of each queue
 }
