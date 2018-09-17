@@ -9,21 +9,33 @@ Last Modification By: Michael Lingo
 
 #include "PriorityQueuePCB.hpp"
 
+
+PriorityQueuePCB::PriorityQueuePCB()
+{
+	highest = PriorityQueue.end();
+}
+
 void PriorityQueuePCB::addPCB(ProcessControlBlock* PCBtoBeAdded)
 {
 	PCBtoBeAdded->state = processState::READY;
 	PriorityQueue[PCBtoBeAdded->priority].enQueue(PCBtoBeAdded);
+	if(PriorityQueue.size() == 1 || PCBtoBeAdded->priority < highest->first)
+	{
+		highest--;
+	}
 	//check the PCB's priority level
 	//insert the PCB into the apporpriate Queue Object within the PriorityQueue's queue vector (call the queue's add method)
 }
 
 ProcessControlBlock* PriorityQueuePCB::removePCB()
 {
-	auto toDequeue = PriorityQueue.begin();
-	auto toReturn = toDequeue->second.deQueue();
-	if (toDequeue->second.isEmpty())
+
+	//auto toDequeue = PriorityQueue.begin();
+	auto toReturn = highest->second.deQueue();
+	if (highest->second.isEmpty())
 	{
-		PriorityQueue.erase(toDequeue);
+		highest++;
+		PriorityQueue.erase(toReturn->priority);
 	}
 	return toReturn;
 
