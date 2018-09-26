@@ -1,6 +1,7 @@
 #environment variables for IDE
 _config.yml
 .vs/
+.vscode/
 *.vsproj
 *.sln
 
