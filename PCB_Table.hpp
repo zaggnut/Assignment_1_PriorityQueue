@@ -1,8 +1,8 @@
 /*
-    PCB Table header file, requires C++11
+    PCB Table header file, requires C++14
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/04/18
+    Last Update: 9/16/18
     Last Update By: Michael Lingo
 
 */
@@ -17,13 +17,33 @@
 #include <stdexcept>
 #include <random>
 #include <chrono>
+#include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 
 //stores refrences to process control blocks
 
-struct PCBKeyStruct //a helper struct to allow removing the key from the key vector easier
+class PCBKeyClass //a helper struct to allow removing the key from the key vector easier
 {
+protected:
+  static __gnu_cxx::bitmap_allocator<PCBKeyClass> allocator;
+
+public:
   unsigned long processVectorIndex;
-  std::shared_ptr<ProcessControlBlock> block;
+  ProcessControlBlock *block;
+
+  PCBKeyClass(unsigned long index_, ProcessControlBlock *block_)
+  {
+    processVectorIndex = index_;
+    block = block_;
+  }
+
+  static void *operator new(std::size_t size)
+  {
+    return allocator._M_allocate_single_object();
+  }
+  static void operator delete(void *block)
+  {
+    allocator._M_deallocate_single_object((PCBKeyClass *)block);
+  }
 };
 
 class InsertFailedException : public std::exception
@@ -48,12 +68,17 @@ class PCB_Table
 {
 protected:
   //map to hold the data
-  std::unordered_map<PCB_ID_TYPE, PCBKeyStruct> ProcessMap;
+  std::unordered_map<PCB_ID_TYPE,
+                     PCBKeyClass,
+                     std::hash<PCB_ID_TYPE>,
+                     std::equal_to<PCB_ID_TYPE>,
+                     __gnu_cxx::bitmap_allocator<std::pair<const PCB_ID_TYPE, PCBKeyClass>>>
+      ProcessMap;
 
   //for random number generation
   std::default_random_engine rand;
 
-   //vector to hold all they keys, faster access for rng
+  //vector to hold all they keys, faster access for rng
   std::vector<PCB_ID_TYPE> keyVector;
 
 public:
@@ -63,24 +88,27 @@ public:
   //set an initial size
   PCB_Table(unsigned initialSize);
 
+  ~PCB_Table();
+
   //returns the number of PCBs in the Table
   unsigned long size();
 
   //stores a process control block, throws exception if store unsuccessful
-  void addNewPCB(std::shared_ptr<ProcessControlBlock> &process);
+  void addNewPCB(ProcessControlBlock *process);
+  void addNewPCB(processState state, PCB_ID_TYPE ID_, unsigned Priority);
 
   //returns a refrence to a process control block, throws exception if not found
-  std::shared_ptr<ProcessControlBlock> &getPCB(PCB_ID_TYPE processID);
+  ProcessControlBlock *getPCB(PCB_ID_TYPE processID);
 
   const std::vector<PCB_ID_TYPE> &getKeyVector() const;
 
   //removes a specific PCB from the table
-  std::shared_ptr<ProcessControlBlock> removePCB(PCB_ID_TYPE processID);
+  ProcessControlBlock *removePCB(PCB_ID_TYPE processID);
 
   //removes and returns a random PCB from the table, throws an exception if there aren't any to remove
-  std::shared_ptr<ProcessControlBlock> removeRandomPCB();
-  
-  //clears everything
+  ProcessControlBlock *removeRandomPCB();
+
+  //clears the table, deallocates everything inside it as well
   void clear();
 };
 

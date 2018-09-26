@@ -1,19 +1,24 @@
 /*
-    PCB header file, requires C++11
+    PCB header file, requires C++14 and gcc
     Created By: Michael Lingo
     Created On: 8/31/18
-    Last Update: 9/04/18
+    Last Update: 9/16/18
     Last Update By: Michael Lingo
 
 */
 
+#ifndef __GNUG__
+#error "requires g++"
+#endif
+
 #ifndef PCB_HPP //header guards to include only once
 #define PCB_HPP
 
+#define __cpp_alligned_new
 #include <iostream>
 #include <cstdint>
 #include <memory>
-
+#include <ext/bitmap_allocator.h> //uses a custom allocator in the gcc for better allocation efficiency
 typedef uint_fast32_t PCB_ID_TYPE;
 
 //each possible valid processs state type
@@ -26,9 +31,13 @@ enum class processState
     TERMINATED
 };
 
+
+
 //struct to hold each PCB
-struct ProcessControlBlock
+class ProcessControlBlock
 {
+  public:
+    static __gnu_cxx::bitmap_allocator<ProcessControlBlock> allocator;
     //the current state of the process
     processState state;
 
@@ -44,14 +53,24 @@ struct ProcessControlBlock
         state = state_;
         priority = priority_;
     }
-};
 
-std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
+    //for other non-raw pointer types
+    static ProcessControlBlock* createPCB(processState state, PCB_ID_TYPE ID, unsigned priority);
+
+    static void *operator new(std::size_t size)
+    {
+        return allocator._M_allocate_single_object();
+    }
+    static void operator delete(void *block)
+    {
+        allocator._M_deallocate_single_object((ProcessControlBlock *)block);
+    }
+};
 
 //converts a process state to it's string equivalent
 std::ostream &operator<<(std::ostream &os, const processState state);
 
 //converts a PCB to a string
-std::ostream &operator<<(std::ostream &os, ProcessControlBlock &process);
+std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process);
 
 #endif //PCB_HPP included

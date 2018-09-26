@@ -1,21 +1,24 @@
 /*
-    PCB implementation file, requires C++11
+    PCB implementation file, requires C++14
     Created By: Michael Lingo
     Created On: 9/04/18
-    Last Update: 9/04/18
+    Last Update: 9/16/18
     Last Update By: Michael Lingo
 
 */
 
 #include "PCB.hpp"
-#include <memory>
+
+__gnu_cxx::bitmap_allocator<ProcessControlBlock> ProcessControlBlock::allocator;
+//has to be declared in the .cpp file too or the linker has a problem
+
 
 //PCB factory
-std::shared_ptr<ProcessControlBlock> createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
+ProcessControlBlock* ProcessControlBlock::createPCB(processState state, PCB_ID_TYPE ID, unsigned priority)
 {
     //std::shared_ptr<ProcessControlBlock> block(new ProcessControlBlock{state, ID, priority});
     //return block;
-    return std::make_shared<ProcessControlBlock>(state,ID,priority);
+    return new ProcessControlBlock(state,ID,priority);
 }
 
 //to string for process states
@@ -45,14 +48,14 @@ std::ostream &operator<<(std::ostream &os, const processState state)
 }
 
 //converts a PCB to a string
-std::ostream &operator<<(std::ostream &os, ProcessControlBlock &process)
+std::ostream &operator<<(std::ostream &os, const ProcessControlBlock &process)
 {
     os << std::right; //align right
-    os.width(6);
+    os.width(5);
     os << process.ID;
-    os.width(12);
+    os.width(10);
     os << process.state;
-    os.width(6);
+    os.width(12);
     os << process.priority;
     return os;
 }
